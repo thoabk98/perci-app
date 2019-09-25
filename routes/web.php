@@ -13,7 +13,7 @@ $router->get('giao-vien/dang-nhap', 'Auth\LoginController@showLoginForm')->name(
 $router->post('giao-vien/dang-nhap', 'Auth\LoginController@teacherLogin');
 $router->get('logout', 'Auth\LoginController@logout')->name('logout');
 
-$router->group(['prefix'=>'admin', 'middleware' => ['web', 'auth']], function (Router $router) {
+$router->group(['prefix'=>'admin', 'middleware' => ['web']], function (Router $router) {
     $router->get('/', function (){
         return redirect('/admin/dashboard');
     });

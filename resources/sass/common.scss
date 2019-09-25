@@ -21,14 +21,14 @@ body.__sonic-theme,
     padding: 10px 15px;
 }
 .__sonic-theme .main-header .navbar, .__sonic-theme .main-header .navbar .sidebar-toggle:hover {
-    background-color: #ededed;
+    background-color: #ecf0f5;
     color: #73879C;
 }
 .__sonic-theme .wrapper, .__sonic-theme .main-sidebar, .__sonic-theme .left-side,
 .__sonic-theme .main-header .logo, .__sonic-theme .main-header .logo:hover,
 .__sonic-theme .sidebar-menu>li:hover>a, .__sonic-theme .sidebar-menu>li.active>a, .__sonic-theme .sidebar-menu>li.menu-open>a
 {
-    background-color: #2a3f54;
+    background-color: white;
 }
 .__sonic-theme .sidebar-menu a {
     font-weight: 600;
@@ -38,7 +38,7 @@ body.__sonic-theme,
 }
 .__sonic-theme .sidebar-menu>li>.treeview-menu {
     margin: 0 1px;
-    background: #2a3f54;
+    background: white;
 }
 .__sonic-theme .treeview-menu {
     padding-left: 0;
@@ -51,7 +51,7 @@ body.__sonic-theme,
 }
 .__sonic-theme .sidebar-menu>li.active>a, .__sonic-theme .treeview.menu-open>a {
     text-shadow: rgba(0,0,0,.25) 0 -1px 0;
-    background: linear-gradient(#334556,#2C4257),#2A3F54;
+    background: linear-gradient(#1ABB9C,white),green;
     box-shadow: rgba(0,0,0,.25) 0 1px 0, inset rgba(255,255,255,.16) 0 1px 0;
 }
 .__sonic-theme .pace .pace-activity {

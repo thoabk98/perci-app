@@ -1,4 +1,7 @@
-<li class="@if(isset($item['sub']) && count($item['sub'])>0)treeview @endif @if(isset($item['active']))active @endif">
+<li style="margin-top: <?php echo (!empty($item['tag'])) ? $item['size'] : 0?>px" class="@if(isset($item['sub']) && count($item['sub'])>0)treeview @endif @if(isset($item['active']))active @endif">
+    @if(!empty($item['tag']))
+        <span style="margin-left: 16px;">{{ $item['tag'] }}</span>
+    @endif
     <a href="{{ $item['router'] }}">
         <i class="{{ $item['icon'] }}"></i> <span>{{ $item['text'] }}</span>
         @if(isset($item['sub']) && count($item['sub'])>0)

@@ -4,7 +4,7 @@
     <a href="/" class="logo">
         <span class="logo-mini"><b>A</b></span>
         <!-- logo for regular state and mobile devices -->
-        <span class="logo-lg"><b>Admin</b></span>
+        <image src="{{ asset('images/logo.png') }}"></image>
     </a>
 
     <!-- Header Navbar: style can be found in header.less -->
@@ -19,7 +19,7 @@
                 <li class="dropdown user user-menu">
                     <a href="#" class="dropdown-toggle" data-toggle="dropdown">
                         <img src="{{ asset('images/user-icon.png') }}" class="user-image" alt="User Image">
-                        <span class="hidden-xs">{{ Auth::user()->user()->name }}</span>
+                        {{--<span class="hidden-xs">{{ Auth::user()->user()->name }}</span>--}}
                     </a>
                     <ul class="dropdown-menu">
                         <!-- User image -->
@@ -27,7 +27,7 @@
                             <img src="{{ asset('images/user-icon.png') }}" class="img-circle" alt="User Image">
 
                             <p>
-                                {{ Auth::user()->user()->name }}
+                                {{--{{ Auth::user()->user()->name }}--}}
                             </p>
                         </li>
                         <!-- Menu Footer-->
