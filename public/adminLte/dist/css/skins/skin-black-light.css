@@ -125,7 +125,7 @@
 }
 .skin-black-light .sidebar-menu .treeview-menu > li.active > a,
 .skin-black-light .sidebar-menu .treeview-menu > li > a:hover {
-  color: #000000;
+  color: black;
 }
 .skin-black-light .sidebar-menu .treeview-menu > li.active > a {
   font-weight: 600;

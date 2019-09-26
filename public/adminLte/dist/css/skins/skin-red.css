@@ -75,8 +75,8 @@
 .skin-red .sidebar-menu > li:hover > a,
 .skin-red .sidebar-menu > li.active > a,
 .skin-red .sidebar-menu > li.menu-open > a {
-  color: #ffffff;
-  background: #1e282c;
+  color: black;
+  background: #1ABB9C;
 }
 .skin-red .sidebar-menu > li.active > a {
   border-left-color: #dd4b39;

@@ -76,7 +76,7 @@
 .skin-purple .sidebar-menu > li.active > a,
 .skin-purple .sidebar-menu > li.menu-open > a {
   color: #ffffff;
-  background: #1e282c;
+  /*background: #1e282c;*/
 }
 .skin-purple .sidebar-menu > li.active > a {
   border-left-color: #605ca8;
@@ -86,7 +86,7 @@
   background: #2c3b41;
 }
 .skin-purple .sidebar a {
-  color: #b8c7ce;
+  color: black;
 }
 .skin-purple .sidebar a:hover {
   text-decoration: none;

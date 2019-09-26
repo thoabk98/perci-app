@@ -76,7 +76,7 @@
 .skin-blue .sidebar-menu > li.active > a,
 .skin-blue .sidebar-menu > li.menu-open > a {
   color: #ffffff;
-  background: #1e282c;
+  /*background: #1e282c;*/
 }
 .skin-blue .sidebar-menu > li.active > a {
   border-left-color: #3c8dbc;
@@ -400,8 +400,8 @@
 .skin-black .sidebar-menu > li:hover > a,
 .skin-black .sidebar-menu > li.active > a,
 .skin-black .sidebar-menu > li.menu-open > a {
-  color: #ffffff;
-  background: #1e282c;
+  /*color: #ffffff;*/
+  /*background: #1e282c;*/
 }
 .skin-black .sidebar-menu > li.active > a {
   border-left-color: #ffffff;
@@ -1570,8 +1570,8 @@
 .skin-purple .sidebar-menu > li:hover > a,
 .skin-purple .sidebar-menu > li.active > a,
 .skin-purple .sidebar-menu > li.menu-open > a {
-  color: #ffffff;
-  background: #1e282c;
+  color: black;
+  /*background: #1e282c;*/
 }
 .skin-purple .sidebar-menu > li.active > a {
   border-left-color: #605ca8;
@@ -1581,17 +1581,17 @@
   background: #2c3b41;
 }
 .skin-purple .sidebar a {
-  color: #b8c7ce;
+  color: black;
 }
 .skin-purple .sidebar a:hover {
   text-decoration: none;
 }
 .skin-purple .sidebar-menu .treeview-menu > li > a {
-  color: #8aa4af;
+  color: black;
 }
 .skin-purple .sidebar-menu .treeview-menu > li.active > a,
 .skin-purple .sidebar-menu .treeview-menu > li > a:hover {
-  color: #ffffff;
+  color: #1ABB9C;
 }
 .skin-purple .sidebar-form {
   border-radius: 3px;
