@@ -8,6 +8,7 @@ $router->get('/policy', 'LandingPageController@privacyPolicy')->name('landingpag
 $router->get('/faq', 'LandingPageController@faq')->name('landingpage.faq');
 $router->get('admin/login', 'Auth\LoginController@showLoginForm')->name('login')->middleware('guest');
 $router->post('admin/login', 'Auth\LoginController@login');
+$router->get('/store-popup', 'LandingPageController@popup')->name('landingpage.popup');
 
 $router->get('hoc-vien/dang-nhap', 'Auth\LoginController@showLoginForm')->name('login')->middleware('guest');
 $router->post('hoc-vien/dang-nhap', 'Auth\LoginController@studentLogin');

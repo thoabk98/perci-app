@@ -1,0 +1,12 @@
+.store-popup ul {
+    list-style-type: none;
+}
+
+.store-popup .rounded {
+    border-radius: 0.75rem !important;
+}
+
+.color-picker {
+    width: 20px;
+    height: 20px;
+}

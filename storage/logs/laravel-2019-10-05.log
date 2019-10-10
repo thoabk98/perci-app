@@ -1,0 +1,21 @@
+[2019-10-05 16:06:15] local.ERROR: Interface 'Illuminate\Contracts\Console\Application' not found {"exception":"[object] (Symfony\\Component\\Debug\\Exception\\FatalErrorException(code: 1): Interface 'Illuminate\\Contracts\\Console\\Application' not found at /home/nguyen/perci-app/vendor/laravel/framework/src/Illuminate/Console/Application.php:23)
+[stacktrace]
+#0 /home/nguyen/perci-app/vendor/laravel/framework/src/Illuminate/Foundation/Bootstrap/HandleExceptions.php(148): Symfony\\Component\\Debug\\Exception\\FatalErrorException->__construct()
+#1 /home/nguyen/perci-app/vendor/laravel/framework/src/Illuminate/Foundation/Bootstrap/HandleExceptions.php(134): Illuminate\\Foundation\\Bootstrap\\HandleExceptions->fatalExceptionFromError()
+#2 /home/nguyen/perci-app/vendor/laravel/framework/src/Illuminate/Foundation/Bootstrap/HandleExceptions.php(0): Illuminate\\Foundation\\Bootstrap\\HandleExceptions->handleShutdown()
+#3 /home/nguyen/perci-app/vendor/composer/ClassLoader.php(444): ()
+#4 /home/nguyen/perci-app/vendor/composer/ClassLoader.php(322): Composer\\Autoload\\includeFile()
+#5 /home/nguyen/perci-app/vendor/laravel/framework/src/Illuminate/Support/ServiceProvider.php(279): Composer\\Autoload\\ClassLoader->loadClass()
+#6 /home/nguyen/perci-app/vendor/laravel/framework/src/Illuminate/Support/ServiceProvider.php(279): spl_autoload_call()
+#7 /home/nguyen/perci-app/vendor/beyondcode/laravel-dump-server/src/DumpServerServiceProvider.php(40): BeyondCode\\DumpServer\\DumpServerServiceProvider->commands()
+#8 /home/nguyen/perci-app/vendor/laravel/framework/src/Illuminate/Foundation/Application.php(607): BeyondCode\\DumpServer\\DumpServerServiceProvider->register()
+#9 /home/nguyen/perci-app/vendor/laravel/framework/src/Illuminate/Foundation/ProviderRepository.php(75): Illuminate\\Foundation\\Application->register()
+#10 /home/nguyen/perci-app/vendor/laravel/framework/src/Illuminate/Foundation/Application.php(584): Illuminate\\Foundation\\ProviderRepository->load()
+#11 /home/nguyen/perci-app/vendor/laravel/framework/src/Illuminate/Foundation/Bootstrap/RegisterProviders.php(17): Illuminate\\Foundation\\Application->registerConfiguredProviders()
+#12 /home/nguyen/perci-app/vendor/laravel/framework/src/Illuminate/Foundation/Application.php(210): Illuminate\\Foundation\\Bootstrap\\RegisterProviders->bootstrap()
+#13 /home/nguyen/perci-app/vendor/laravel/framework/src/Illuminate/Foundation/Console/Kernel.php(322): Illuminate\\Foundation\\Application->bootstrapWith()
+#14 /home/nguyen/perci-app/vendor/laravel/framework/src/Illuminate/Foundation/Console/Kernel.php(131): App\\Console\\Kernel->bootstrap()
+#15 /home/nguyen/perci-app/artisan(37): App\\Console\\Kernel->handle()
+#16 /home/nguyen/perci-app/artisan(0): {main}()
+#17 {main}
+"} 
