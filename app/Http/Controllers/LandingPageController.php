@@ -25,4 +25,9 @@ class LandingPageController extends Controller
     {
         return view('landingpage.faq');
     }
+
+    public function popup()
+    {
+        return view('landingpage.popup');
+    }
 }
