@@ -66,7 +66,7 @@ return [
         'name' => 'Reports',
         'text' => 'Reports',
         'icon' => 'fa fa-bar-chart',
-        'router' => '/admin/teacher/',
+        'router' => '/ult-upsell/report/',
         'order' => 1,
         'tag' => "MAIN MENU",
         'size' => 20,

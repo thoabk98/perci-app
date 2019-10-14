@@ -27,6 +27,7 @@ $router->group(['prefix'=>'ult-upsell', 'middleware' => ['web']], function (Rout
         $router->get('/', 'AdminController@index');
         $router->get('new', 'AdminController@index');
     });
+    $router->get('report', 'AdminController@index');
 
     // $router->get('/import', 'HomeController@import')->name('import');
     // $router->post('/import', 'HomeController@importPost')->name('import.post');
@@ -143,6 +144,7 @@ $router->group(['prefix'=>'ult-upsell', 'middleware' => ['web']], function (Rout
     //     $router->get('create', 'AdminController@index');
     // });
 
-
 });
+
+
 
