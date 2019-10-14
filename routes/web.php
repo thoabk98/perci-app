@@ -26,6 +26,7 @@ $router->group(['prefix'=>'ult-upsell', 'middleware' => ['web']], function (Rout
     $router->group(['prefix'=>'offer'], function (Router $router) {
         $router->get('/', 'AdminController@index');
         $router->get('new', 'AdminController@index');
+        $router->get('/settings', 'AdminController@index');
     });
 
     // $router->get('/import', 'HomeController@import')->name('import');
