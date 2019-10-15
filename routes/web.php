@@ -1,5 +1,7 @@
 <?php
+
 use Illuminate\Routing\Router;
+
 /**@var Router $router*/
 $router->get('/', 'LandingPageController@index')->name('landingpage.index');
 $router->get('/terms', 'LandingPageController@termOfService')->name('landingpage.termOfService');
@@ -13,14 +15,18 @@ $router->get('/store-popup', 'LandingPageController@popup')->name('landingpage.p
 // $router->get('giao-vien/dang-nhap', 'Auth\LoginController@showLoginForm')->name('login')->middleware('guest');
 // $router->post('giao-vien/dang-nhap', 'Auth\LoginController@teacherLogin');
 // $router->get('logout', 'Auth\LoginController@logout')->name('logout');
-$router->group(['prefix'=>'ult-upsell', 'middleware' => ['web']], function (Router $router) {
+
+$router->group(['prefix' => 'ult-upsell', 'middleware' => ['web']], function (Router $router) {
     // $router->get('/', function (){
     //     return redirect('/admin/dashboard');
     // });
     $router->get('dashboard', 'AdminController@index')->name('dashboard');
-    $router->group(['prefix'=>'offer'], function (Router $router) {
+
+    $router->group(['prefix' => 'offer'], function (Router $router) {
         $router->get('/', 'AdminController@index');
         $router->get('new', 'AdminController@index');
+        $router->get('/step1', 'AdminController@index');
+        $router->get('/step2', 'AdminController@index');
         $router->get('create', 'AdminController@index');
     });
     $router->get('report', 'AdminController@index');
@@ -138,4 +144,3 @@ $router->group(['prefix'=>'ult-upsell', 'middleware' => ['web']], function (Rout
     // });
 
 });
-
