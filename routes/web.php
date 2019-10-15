@@ -3,7 +3,6 @@
 use Illuminate\Routing\Router;
 
 /**@var Router $router*/
-
 $router->get('/', 'LandingPageController@index')->name('landingpage.index');
 $router->get('/terms', 'LandingPageController@termOfService')->name('landingpage.termOfService');
 $router->get('/policy', 'LandingPageController@privacyPolicy')->name('landingpage.privacyPolicy');
@@ -11,10 +10,8 @@ $router->get('/faq', 'LandingPageController@faq')->name('landingpage.faq');
 $router->get('admin/login', 'Auth\LoginController@showLoginForm')->name('login')->middleware('guest');
 $router->post('admin/login', 'Auth\LoginController@login');
 $router->get('/store-popup', 'LandingPageController@popup')->name('landingpage.popup');
-
 // $router->get('hoc-vien/dang-nhap', 'Auth\LoginController@showLoginForm')->name('login')->middleware('guest');
 // $router->post('hoc-vien/dang-nhap', 'Auth\LoginController@studentLogin');
-
 // $router->get('giao-vien/dang-nhap', 'Auth\LoginController@showLoginForm')->name('login')->middleware('guest');
 // $router->post('giao-vien/dang-nhap', 'Auth\LoginController@teacherLogin');
 // $router->get('logout', 'Auth\LoginController@logout')->name('logout');
@@ -30,11 +27,11 @@ $router->group(['prefix' => 'ult-upsell', 'middleware' => ['web']], function (Ro
         $router->get('new', 'AdminController@index');
         $router->get('/step1', 'AdminController@index');
         $router->get('/step2', 'AdminController@index');
+        $router->get('create', 'AdminController@index');
     });
-
+    $router->get('report', 'AdminController@index');
     // $router->get('/import', 'HomeController@import')->name('import');
     // $router->post('/import', 'HomeController@importPost')->name('import.post');
-
     // $router->group(['prefix'=>'teacher'], function (Router $router) {
     //     $router->get('teachers', 'AdminController@index');
     //     $router->get('{id}/edit', 'AdminController@index');
@@ -136,7 +133,6 @@ $router->group(['prefix' => 'ult-upsell', 'middleware' => ['web']], function (Ro
     //     $router->get('/create', 'AdminController@index');
     // });
     // $router->get('account/profile', 'AdminController@index');
-
     // $router->group(['prefix'=>'practice'], function (Router $router) {
     //     $router->get('/practices', 'AdminController@index');
     // });
@@ -146,6 +142,5 @@ $router->group(['prefix' => 'ult-upsell', 'middleware' => ['web']], function (Ro
     //     $router->get('{id}/info', 'AdminController@index');
     //     $router->get('create', 'AdminController@index');
     // });
-
 
 });
