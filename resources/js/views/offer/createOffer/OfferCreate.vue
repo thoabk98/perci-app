@@ -7,13 +7,12 @@
                 </div>
             </div>
             <div class="col-md-12" style="font-size: 16px">
-                <el-breadcrumb separator-class="el-icon-arrow-right">
+                <el-breadcrumb class="create-offer-step" separator-class="el-icon-arrow-right">
                     <el-breadcrumb-item>Offer Type</el-breadcrumb-item>
                     <el-breadcrumb-item>Location</el-breadcrumb-item>
-                    <el-breadcrumb-item>Booster</el-breadcrumb-item>
                     <el-breadcrumb-item><strong>Offer settings</strong></el-breadcrumb-item>
                 </el-breadcrumb>
-    
+
                 <el-button class="publish-btn">Publish</el-button>
                 <el-button class="save-btn">Save</el-button>
             </div>
@@ -53,9 +52,9 @@
                                             :before-close="handleClose">
                                             <div class="row">
                                                 <div class="col-md-6">
-                                                    <el-input 
-                                                        placeholder="Search products, colecttions,..." 
-                                                        prefix-icon="el-icon-search" 
+                                                    <el-input
+                                                        placeholder="Search products, colecttions,..."
+                                                        prefix-icon="el-icon-search"
                                                         v-model="groupName">
                                                     </el-input>
                                                 </div>
@@ -77,7 +76,7 @@
                                                                     :key="item.value"
                                                                     :label="item.label"
                                                                     :value="item.value">
-                                                                </el-option>    
+                                                                </el-option>
                                                             </el-select>
                                                         </div>
                                                     </div>
@@ -98,13 +97,13 @@
                                                                     :key="item.value"
                                                                     :label="item.label"
                                                                     :value="item.value">
-                                                                </el-option>    
+                                                                </el-option>
                                                             </el-select>
                                                         </div>
                                                     </div>
                                                 </div>
                                             </div>
-                                            
+
                                             <span slot="footer" class="dialog-footer">
                                                 <el-button @click="dialogVisible = false">Cancel</el-button>
                                                 <el-button type="primary" @click="dialogVisible = false">Continue (3)</el-button>
@@ -161,8 +160,8 @@
                     <el-card class="box-card outter-bottom">
                         <div class="template">
                             <h3>Display Settings</h3><br>
-                            <span class="title">Popup Template</span>
-                            <span class="template-name">Chirstmas Theme 2019</span> 
+                            <span class="template-title">Popup Template</span>
+                            <span class="template-name">Chirstmas Theme 2019</span>
                             <el-button type="text">Change</el-button>
                         </div>
                         <div>
@@ -192,10 +191,10 @@ export default {
     data() {
         return {
             offerName: '',
-            groupName: '', 
-            headline: '', 
+            groupName: '',
+            headline: '',
             description: '',
-            searchProduct: '', 
+            searchProduct: '',
             targetRadio: '',
             displayRadio: '',
             isActive: false,
@@ -229,15 +228,15 @@ export default {
         }
         .el-button {
             float: right;
-            border: none; 
+            border: none;
             padding: 1rem 3rem;
             font-size: 16px;
         }
         .save-btn {
-            background-color: inherit; 
+            background-color: inherit;
         }
         .publish-btn {
-            background-color: #072856; 
+            background-color: #072856;
             color: #fff;
         }
     }
@@ -277,7 +276,7 @@ export default {
                         font-size: 16px;
                         min-height: 120px!important;
                     }
-                } 
+                }
             }
             .el-radio-button {
                 margin: 10px 20px 0 0;
@@ -307,10 +306,10 @@ export default {
         .left-container {
             ul {
                 padding-left: 0;
-                list-style-type: none; 
+                list-style-type: none;
                 li {
                     font-size: 13px;
-                }  
+                }
             }
             .target-wrapper {
                 position: relative;
@@ -348,7 +347,7 @@ export default {
                         }
                     }
                 }
-            }  
+            }
         }
         .right-container {
             .outter-top {
@@ -401,7 +400,7 @@ export default {
                     h3 {
                         display: inline-block;
                     }
-                    .title {
+                    .template-title {
                         padding-right: 2rem;
                         font-weight: bold;
                     }
