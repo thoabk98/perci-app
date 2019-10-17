@@ -43,7 +43,7 @@ class OfferLib
             [
                 'headers' => $headers,
                 'query' => $query
-            ],
+            ]
         );
         $regions = json_decode($res->getBody()->getContents(), true)['data'];
         return $regions;
@@ -65,7 +65,7 @@ class OfferLib
             [
                 'headers' => $headers,
                 'body' => $body
-            ],
+            ]
         );
         $widgetTemplate = json_decode($res->getBody()->getContents(), true)['data'];
         return $widgetTemplate;
@@ -88,7 +88,7 @@ class OfferLib
             [
                 'headers' => $headers,
                 'body' => $body
-            ],
+            ]
         );
         $widget = json_decode($res->getBody()->getContents(), true)['data'];
         return $widget;
@@ -112,7 +112,7 @@ class OfferLib
             [
                 'headers' => $headers,
                 'body' => $body
-            ],
+            ]
         );
         $placement = json_decode($res->getBody()->getContents(), true)['data'];
         return $placement;
@@ -139,7 +139,7 @@ class OfferLib
             [
                 'headers' => $headers,
                 'body' => $body
-            ],
+            ]
         );
         $script = json_decode($res->getBody()->getContents(), true)['data'];
         return $script;

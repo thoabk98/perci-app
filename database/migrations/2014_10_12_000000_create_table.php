@@ -13,22 +13,35 @@ class CreateTable extends Migration
      */
     public function up()
     {
-        Schema::create('users', function (Blueprint $table) {
-            $table->increments('id');
+        Schema::create("users", function (Blueprint $table){
+            $table->bigIncrements('id');
+            $table->string('name');
+            $table->tinyInteger('admin');
+            $table->string('password');
+            $table->string('phone');
+            $table->string('email')->unique();
             $table->string("client_id");
-            $table->string("name");
-            $table->string("email")->unique();
-            $table->string("phone");
+            $table->string("client_secret");
+            $table->string("auth_token");
+            $table->string("store_hash");
+            $table->timestamp('email_verified_at')->nullable();
+            $table->rememberToken();
             $table->timestamps();
+            $table->softDeletes();
         });
         Schema::create('offers', function (Blueprint $table) {
             $table->increments('id');
             $table->integer("user_id");
             $table->string("base_product_id");
-            $table->string("offer_product_id");
             $table->tinyInteger("type")->comment("1: cross sell, 2: up sell");
-            $table->string("content");
-            $table->integer("customer_template_id");
+            $table->string("content")->nullable();
+            $table->integer("customer_template_id")->nullable();
+            $table->timestamps();
+        });
+        Schema::create('offer_items', function (Blueprint $table) {
+            $table->increments('id');
+            $table->integer("offer_id");
+            $table->string("offer_product_id");
             $table->timestamps();
         });
         Schema::create('conversions', function (Blueprint $table) {
@@ -59,5 +72,6 @@ class CreateTable extends Migration
         Schema::dropIfExists('custom_templates');
         Schema::dropIfExists('conversions');
         Schema::dropIfExists('offers');
+        Schema::dropIfExists('offer_items');
     }
 }
