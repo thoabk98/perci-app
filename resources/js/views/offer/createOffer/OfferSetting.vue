@@ -5,15 +5,6 @@
 				<div class="col col-lg-6">
 					<h1 class="title">Offer Settings</h1>
 				</div>
-				<div class="col col-lg-6">
-					<el-input
-						id="search-bar"
-						placeholder="Search Offer, Group ..."
-						prefix-icon="el-icon-search"
-						suffix-icon="el-icon-close"
-						v-model="input2"
-					></el-input>
-				</div>
 			</div>
 		</section>
 		<section class="content">
@@ -36,7 +27,6 @@
 					Only show an offer to the same customer every
 					<el-input
 						id="input-time"
-						placeholder="10"
 						v-model="input"
 						:disabled="radio != 6"
 					></el-input>
@@ -139,8 +129,8 @@ export default {
 					label: "hour"
 				}
 			],
-			value: "",
-			input: "",
+			value: "minute",
+			input: 10,
 			input2: ""
 		};
 	}

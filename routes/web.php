@@ -25,10 +25,11 @@ $router->group(['prefix' => 'ult-upsell', 'middleware' => ['web']], function (Ro
     $router->group(['prefix' => 'offer'], function (Router $router) {
         $router->get('/', 'AdminController@index');
         $router->get('new', 'AdminController@index');
-        $router->get('/settings', 'AdminController@index');
-        $router->get('/step1', 'AdminController@index');
-        $router->get('/step2', 'AdminController@index');
+        $router->get('settings', 'AdminController@index');
+        $router->get('create/step1', 'AdminController@index');
+        $router->get('create/step2', 'AdminController@index');
         $router->get('create', 'AdminController@index');
+        $router->get('test', 'OfferController@testApi');
     });
     $router->get('report', 'AdminController@index');
     // $router->get('/import', 'HomeController@import')->name('import');
