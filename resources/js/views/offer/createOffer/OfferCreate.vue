@@ -14,7 +14,7 @@
                 </el-breadcrumb>
 
                 <el-button class="publish-btn">Publish</el-button>
-                <el-button class="save-btn">Save</el-button>
+                <el-button class="save-btn" @click="save()">Save</el-button>
             </div>
         </div>
 
@@ -49,7 +49,8 @@
                                             title="Select Product"
                                             :visible.sync="dialogVisible"
                                             width="60%"
-                                            :before-close="handleClose">
+                                            >
+
                                             <div class="row">
                                                 <div class="col-md-6">
                                                     <el-input
@@ -104,6 +105,8 @@
                                                 </div>
                                             </div>
 
+                                            <!-- <OfferProductList></OfferProductList> -->
+
                                             <span slot="footer" class="dialog-footer">
                                                 <el-button @click="dialogVisible = false">Cancel</el-button>
                                                 <el-button type="primary" @click="dialogVisible = false">Continue (3)</el-button>
@@ -136,9 +139,9 @@
                     <el-card class="box-card outter-top">
                         <el-card class="box-card inner">
                             <div class="text-component ">
-                                <h2>LIMITED TIME OFFER!</h2>
+                                <h2>{{ headline }}</h2>
                             </div>
-                            <div class="text-component">Add these Items and Save</div>
+                            <div class="text-component">{{ description }}</div>
                             <div class="row text-component">
                                 <div class="col-lg-6 text-left"><img width="100%" src="https://images.unsplash.com/photo-1555089439-9edb4b4b8dfb?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&w=1000&q=80" class="img-fluid" alt="" /></div>
                                 <div class="col-lg-6 text-left">
@@ -167,7 +170,7 @@
                         <div>
                             <div class="input-wrapper">
                                 <span class="input-title">Headline</span>
-                                <el-input placeholder="LIMITED TIME OFFER! "v-model="headline"></el-input>
+                                <el-input placeholder="Enter headline" v-model="headline"></el-input>
                             </div>
                             <div class="input-wrapper">
                                 <span class="input-title">Description</span>
@@ -187,18 +190,21 @@
 </template>
 
 <script>
+import OfferProductList from './OfferProductList.vue'
+import Form from 'form-backend-validation';
+
 export default {
     data() {
         return {
             offerName: '',
             groupName: '',
-            headline: '',
-            description: '',
+            headline: 'LIMITED TIME OFFER!',
+            description: 'Add these Items and Save',
             searchProduct: '',
             targetRadio: '',
             displayRadio: '',
             isActive: false,
-            dialogVisible: false
+            dialogVisible: false,
         }
     },
     methods: {
@@ -208,8 +214,31 @@ export default {
                 done();
             })
             .catch(_ => {});
+        },
+        save() {
+            var content = {
+                offerName: this.offerName,
+                groupName: this.groupName,
+                headLine: this.headline,
+                description: this.description
+            }
+            this.offer.content = content;
+            this.$emit("nextStep", 2, this.offer);
+            this.submitForm();
+        },
+        submitForm() {
+            var form = new Form(this.offer)
+            form.post(route('offer.store'))
+                .then(res => {
+                    console.log(res);
+                })
+                .catch();
         }
-    }
+    },
+    components: {
+        OfferProductList
+    },
+    props: [ 'offer' ]
 }
 </script>
 

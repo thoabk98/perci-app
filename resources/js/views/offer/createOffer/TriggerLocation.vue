@@ -26,13 +26,13 @@
             <!-- /div content -->
             <div class="row row-center">
                 <div class="col-md-3 col-sm-12 col-custom">
-                    <trigger-card :data="addToCart" @nextStep='next' :step="step"></trigger-card>
+                    <trigger-card :data="addToCart" :offer="offer" @nextStep='next' :step="step"></trigger-card>
                 </div>
                 <div class="col-md-3 col-sm-12 col-custom">
-                    <trigger-card :data="beforeCheckout" @nextStep='next' :step="step"></trigger-card>
+                    <trigger-card :data="beforeCheckout" :offer="offer" @nextStep='next' :step="step"></trigger-card>
                 </div>
                 <div class="col-md-3 col-sm-12 col-custom">
-                    <trigger-card :data="afterCheckout" @nextStep='next' :step="step"></trigger-card>
+                    <trigger-card :data="afterCheckout" :offer="offer" @nextStep='next' :step="step"></trigger-card>
                 </div>
             </div>
             <!-- div container -->
@@ -53,7 +53,8 @@
 					description: "Offer will trigger when customer click on the add-to-cart button of the target product.",
 					disable: false,
 					id: "add to cart",
-					btnValue: "Add-to-cart"
+					btnValue: "Add-to-cart",
+                    positionId: 1
 				},
 				beforeCheckout: {
 					image: "https://via.placeholder.com/300x190",
@@ -61,7 +62,8 @@
 					description: "Offer will trigger when customer click on the add-to-cart button of the target product.",
 					disable: false,
 					id: "before checkout",
-					btnValue: "Before Checkout"
+					btnValue: "Before Checkout",
+                    positionId: 2
 				},
 				afterCheckout: {
 					image: "https://via.placeholder.com/300x190",
@@ -69,7 +71,8 @@
 					description: "Beta version. Coming soon",
 					disable: false,
 					id: "after checkout",
-					btnValue: "After Checkout"
+					btnValue: "After Checkout",
+                    positionId: 3
 				}
 			};
 		},
@@ -77,13 +80,15 @@
 			"trigger-card": TriggerCard
 		},
 		methods: {
-			next(step) {
+			next(step, offer) {
 				this.step = step;
-				this.$emit("nextStep", this.step);
+                this.offer = offer;
+				this.$emit("nextStep", this.step, this.offer);
 			},
 		},
 		props: [
-			'step'
+			'step',
+            'offer'
 		],
     };
 </script>

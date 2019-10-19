@@ -17,11 +17,12 @@
 </template>
 <script>
     export default {
-    	props: ["data", "step"],
+    	props: ["data", "step", "offer"],
 		methods: {
 			next() {
 				if (this.step++ > 2) this.step = 2;
-				this.$emit("nextStep", this.step);
+				this.offer.position = this.data.positionId;
+				this.$emit("nextStep", this.step, this.offer);
             }
 		}
     };

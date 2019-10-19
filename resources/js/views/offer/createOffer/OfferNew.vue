@@ -2,13 +2,13 @@
     <div>
         <el-tabs class="create-offer-tabs" v-model="step.toString()">
             <el-tab-pane name="0">
-                <OfferForm :step="step" @nextStep='next'></OfferForm>
+                <OfferForm :step="step" :offer="offer" @nextStep='next'></OfferForm>
             </el-tab-pane>
             <el-tab-pane name="1">
-                <TriggerLocation :step="step" @nextStep='next'></TriggerLocation>
+                <TriggerLocation :step="step" :offer="offer" @nextStep='next'></TriggerLocation>
             </el-tab-pane>
             <el-tab-pane name="2">
-                <OfferCreate></OfferCreate>
+                <OfferCreate :offer="offer"></OfferCreate>
             </el-tab-pane>
         </el-tabs>
 
@@ -23,7 +23,16 @@ import OfferCreate from './OfferCreate.vue';
 export default {
     data() {
         return {
-            step: 0
+            step: 0,
+            offer: {
+                client_id: '',
+                target_product_id: '',
+                offer_product_id: [],
+                type: '',
+                position: '',
+                content: {},
+                custom_template_id: ''
+            }
         };
     },
     components: {
@@ -32,8 +41,9 @@ export default {
         OfferCreate
 	},
     methods: {
-        next(step) {
+        next(step, offer) {
             this.step = step;
+            this.offer = offer;
         },
     }
 }

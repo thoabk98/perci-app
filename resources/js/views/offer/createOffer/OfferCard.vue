@@ -42,7 +42,7 @@
 
 <script>
     export default {
-        props: ["data", "isUpSellBoost", "isCrossSellBoost", "step"],
+        props: ["data", "isUpSellBoost", "isCrossSellBoost", "step", "offer"],
         data() {
             return {};
         },
@@ -60,13 +60,14 @@
                 }
 
 				if (!this.data.isBoost) {
-					this.next();
+					this.next(this.data.id);
 				}
 
             },
-            next() {
+            next(offerType) {
 				if (this.step++ > 2) this.step = 2;
-				this.$emit("nextStep", this.step);
+                this.offer.type = offerType == 'upsell' ? 1 : 2;
+				this.$emit("nextStep", this.step, this.offer);
             }
         }
     };

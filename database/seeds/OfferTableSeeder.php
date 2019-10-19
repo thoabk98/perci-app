@@ -24,10 +24,11 @@ class OfferTableSeeder extends Seeder
                 "user_id" => 1,
                 "base_product_id" => $product->id,
                 "type" => 2,
+                "position" => 1,
                 "created_at" => \Carbon\Carbon::now(),
                 "updated_at" => \Carbon\Carbon::now()
             ];
-            array_push($item, $offers);
+            array_push($offers, $item);
         }
         DB::table("offers")->insert($offers);
     }
