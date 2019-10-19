@@ -34,6 +34,7 @@ class CreateTable extends Migration
             $table->integer("user_id");
             $table->string("base_product_id");
             $table->tinyInteger("type")->comment("1: cross sell, 2: up sell");
+            $table->tinyInteger("position")->comment("1: add to cart, 2: before checkout, 3: after checkout");
             $table->string("content")->nullable();
             $table->integer("customer_template_id")->nullable();
             $table->timestamps();

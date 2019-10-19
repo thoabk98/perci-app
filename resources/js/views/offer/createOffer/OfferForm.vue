@@ -22,11 +22,11 @@
 				<!-- Basic upsell -->
 				<div class="col-md-2"></div>
 				<div class="col-md-4 col-sm-12">
-					<offer-card :data="upSellBasic" :step="step" @nextStep='next'></offer-card>
+					<offer-card :data="upSellBasic" :step="step" :offer="offer" @nextStep='next'></offer-card>
 				</div>
 				<!-- Basic Crosssell -->
 				<div class="col-md-4 col-sm-12">
-					<offer-card :data="upSellBasic" :step="step" @nextStep='next'></offer-card>
+					<offer-card :data="crossSellBasic" :step="step" :offer="offer" @nextStep='next'></offer-card>
 				</div>
 			</div>
 			<div class="row top-buffer ">
@@ -48,7 +48,7 @@
     import OfferCard from "./OfferCard.vue";
 
     export default {
-		props: ["step"],
+		props: ["step", "offer"],
         data() {
                 return {
                     isUpSellBoost: false,
@@ -58,6 +58,13 @@
                         description: "Encouraging the purchase of anything in conjunction with the primary product",
                         id: "upsell",
                         btnValue: "Basic Upsell",
+                        isBoost: false
+                    },
+                    crossSellBasic: {
+                        image: "https://via.placeholder.com/300x190",
+                        description: "Encouraging the purchase of anything in conjunction with the primary product",
+                        id: "crosssell",
+                        btnValue: "Basic Crossel",
                         isBoost: false
                     },
                     upSellBoost: {
@@ -79,9 +86,10 @@
                     this.isUpSellBoost = isUpSellBoost;
                     this.isCrossSellBoost = isCrossSellBoost;
                 },
-				next(step) {
+				next(step, offer) {
 					this.step = step;
-					this.$emit("nextStep", this.step);
+                    this.offer = offer
+					this.$emit("nextStep", this.step, this.offer);
 				},
             },
             components: {

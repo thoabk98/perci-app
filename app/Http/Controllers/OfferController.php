@@ -4,9 +4,18 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Lib\OfferLib;
+use Illuminate\Support\Facades\Log;
+use App\Offer;
+// use App\Repositories\OfferRepository;
 
 class OfferController extends Controller
 {
+	// public $offerRepository;
+    // public function __construct(OfferRepository $offerRepository)
+    // {
+    //     $this->offerRepository = $offerRepository;
+    // }
+
     public function testApi()
     {
 		$merchant = array(
@@ -48,5 +57,32 @@ class OfferController extends Controller
 		dd($placement);
 
 		return 'Product list';
-    }
+	}
+
+	public function store(Request $request) {
+		$data = $request->all();
+
+		$offer = new Offer;
+		$offer->user_id = 1;
+		$offer->base_product_id = 77;
+		$offer->type = $data["type"];
+		$offer->position = $data["position"];
+		$offer->content = json_encode($data["content"]);
+		$offer->save();
+
+		return $data;
+        // $data = array_merge($data, [
+        //     'start_time' => Helper::formatDate($data['start_time']),
+        //     'end_time' => Helper::formatDate($data['end_time']),
+        //     'exam_time' => Helper::formatDate($data['exam_time']),
+        //     'exam_end_time' => Helper::formatDate($data['exam_end_time'])
+        // ]);
+        // try {
+        //     $this->courseRepository->store($data);
+        //     return $this->response(true, 'thêm mới thành công');
+        // } catch(\Exception $ex) {
+        //     Log::error('Create new item: fail. message: '.$ex->getMessage().'. file: '.$ex->getFile().'. line: '.$ex->getLine());
+        //     return $this->response(false, 'thêm mới không thành công');
+        // }
+	}
 }

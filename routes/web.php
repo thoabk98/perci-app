@@ -29,7 +29,9 @@ $router->group(['prefix' => 'ult-upsell', 'middleware' => ['web']], function (Ro
         $router->get('create/step1', 'AdminController@index');
         $router->get('create/step2', 'AdminController@index');
         $router->get('create', 'AdminController@index');
+
         $router->get('test', 'OfferController@testApi');
+        $router->post('/', 'OfferController@store')->name('offer.store');
     });
     $router->get('report', 'AdminController@index');
     // $router->get('/import', 'HomeController@import')->name('import');
