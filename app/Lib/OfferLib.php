@@ -144,4 +144,27 @@ class OfferLib
         $script = json_decode($res->getBody()->getContents(), true)['data'];
         return $script;
     }
+
+    public static function getAllProductImages($merchant, $productId) {
+        $client = new GuzzleHttp();
+        $headers = OfferLib::configureHeader($merchant);
+        $res = $client->request(
+            'GET', 'https://api.bigcommerce.com/stores/' . $merchant['store_hash'] . '/v3/catalog/products/' . $productId . '/images',
+            [
+                'headers' => $headers,
+            ]
+        );
+        $images = json_decode($res->getBody()->getContents(), true)['data'];
+        return $images;
+    }
+
+    public static function getProductThumbnailUrl($merchant, $productId) {
+        $images = OfferLib::getAllProductImages($merchant, $productId);
+        foreach ($images as $image) {
+            if ($image['is_thumbnail']) {
+                return $image['url_thumbnail'];
+            }
+        }
+        return $image[0]['url_thumbnail'];
+    }
 }
