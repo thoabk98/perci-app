@@ -3,7 +3,6 @@
 namespace App\Http\Controllers\Auth;
 
 use App\Http\Controllers\Controller;
-use App\Models\UserLogin;
 use Illuminate\Foundation\Auth\AuthenticatesUsers;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -28,7 +27,7 @@ class LoginController extends Controller
      *
      * @var string
      */
-    protected $redirectTo = '/admin/';
+    protected $redirectTo = '/ult-upsell/';
 
     /**
      * Create a new controller instance.
@@ -40,20 +39,15 @@ class LoginController extends Controller
         $this->middleware('guest')->except('logout');
     }
 
-    public function login(Request $request, $type=UserLogin::TYPE_ADMIN)
+    public function login(Request $request)
     {
         $request->validate([
             'usr' => 'required',
             'pwd' => 'required',
         ]);
 
-        if (Auth::attempt([$this->username()=>$request->usr, 'password'=>$request->pwd, 'type'=> $type])) {
-            if($type==UserLogin::TYPE_TEACHER) {
-                $this->redirectTo = '/giao-vien/';
-            }elseif ($type==UserLogin::TYPE_STUDENT) {
-                $this->redirectTo = '/hoc-vien/';
-            }
-            return redirect($this->redirectTo);
+        if (Auth::attempt(['name' =>$request->usr, 'password'=>$request->pwd])) {
+            return redirect()->route('dashboard');
         } else {
             return redirect()->back()->with('error_msg', 'Thông tin đăng nhập không chính xác.');
         }
@@ -69,23 +63,11 @@ class LoginController extends Controller
 
     public function logout(Request $request)
     {
-        $loginType = Auth::user()->type;
-        if ($loginType==UserLogin::TYPE_ADMIN) {
-            $redirect = 'admin/login';
-        } elseif ($loginType==UserLogin::TYPE_TEACHER) {
-            $redirect = 'giao-vien/dang-nhap';
-        } elseif ($loginType==UserLogin::TYPE_STUDENT) {
-            $redirect = 'hoc-vien/dang-nhap';
-        }
+        $redirect = 'ult-upsell/login';
         $this->guard()->logout();
 
         $request->session()->invalidate();
 
         return $this->loggedOut($request) ?: redirect($redirect);
-    }
-
-    public function username()
-    {
-        return 'loginID';
     }
 }

@@ -7,16 +7,16 @@ $router->get('/', 'LandingPageController@index')->name('landingpage.index');
 $router->get('/terms', 'LandingPageController@termOfService')->name('landingpage.termOfService');
 $router->get('/policy', 'LandingPageController@privacyPolicy')->name('landingpage.privacyPolicy');
 $router->get('/faq', 'LandingPageController@faq')->name('landingpage.faq');
-$router->get('admin/login', 'Auth\LoginController@showLoginForm')->name('login')->middleware('guest');
-$router->post('admin/login', 'Auth\LoginController@login');
+$router->get('ult-upsell/login', 'Auth\LoginController@showLoginForm')->name('login')->middleware('guest');
+$router->post('ult-upsell/login', 'Auth\LoginController@login');
 $router->get('/store-popup', 'LandingPageController@popup')->name('landingpage.popup');
 // $router->get('hoc-vien/dang-nhap', 'Auth\LoginController@showLoginForm')->name('login')->middleware('guest');
 // $router->post('hoc-vien/dang-nhap', 'Auth\LoginController@studentLogin');
 // $router->get('giao-vien/dang-nhap', 'Auth\LoginController@showLoginForm')->name('login')->middleware('guest');
 // $router->post('giao-vien/dang-nhap', 'Auth\LoginController@teacherLogin');
-// $router->get('logout', 'Auth\LoginController@logout')->name('logout');
+ $router->get('logout', 'Auth\LoginController@logout')->name('logout');
 
-$router->group(['prefix' => 'ult-upsell', 'middleware' => ['web']], function (Router $router) {
+$router->group(['prefix' => 'ult-upsell', 'middleware' => ['web', 'auth']], function (Router $router) {
     // $router->get('/', function (){
     //     return redirect('/admin/dashboard');
     // });
