@@ -51,39 +51,9 @@ import OfferListTable from './OfferListTable.vue'
 export default {
     data() {
         return {
-            offers: [{
-                name: 'Red Shoes A82 Super Awesome No.1',
-                address: 'No. 189, Grove St, Los Angeles',
-                group_name: 'Group Name',
-                date: '2016-05-02',
-                cvs_rate: '35%',
-                aov: '$234.04',
-                views: 142,
-            }, {
-                name: 'Yellow Shoes A82 Super Awesome No.1',
-                address: 'No. 189, Grove St, Los Angeles',
-                group_name: 'Group Name',
-                date: '2016-05-03',
-                cvs_rate: '35%',
-                aov: '$234.04',
-                views: 142,
-            }, {
-                name: 'Green Shoes A82 Super Awesome No.1',
-                address: 'No. 189, Grove St, Los Angeles',
-                group_name: 'Group Name',
-                date: '2016-05-04',
-                cvs_rate: '35%',
-                aov: '$234.04',
-                views: 142,
-            }, {
-                name: 'Black Shoes A82 Super Awesome No.1',
-                address: 'No. 189, Grove St, Los Angeles',
-                group_name: 'Group Name',
-                date: '2016-05-05',
-                cvs_rate: '35%',
-                aov: '$234.04',
-                views: 142,
-            }],
+            offers: null,
+            total: 20,
+            search: '',
             offerGroups: [
                 {
                     name: 'Group A01',
@@ -103,7 +73,6 @@ export default {
                     isActive: true
                 }
             ],
-            search: '',
             activeName: 'offer'
         }
     },

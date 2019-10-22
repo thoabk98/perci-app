@@ -4,20 +4,25 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Lib\OfferLib;
+use App\Models\Offer;
 use Illuminate\Support\Facades\Log;
-use App\Offer;
-// use App\Repositories\OfferRepository;
+use App\Repositories\OfferRepository;
+use App\Repositories\UserRepository;
+use Illuminate\Support\Facades\Auth;
 
 class OfferController extends Controller
 {
-	// public $offerRepository;
-    // public function __construct(OfferRepository $offerRepository)
-    // {
-    //     $this->offerRepository = $offerRepository;
-    // }
+	private $offerRepository;
+	private $userRepository;
 
-    public function testApi()
-    {
+	public function __construct(OfferRepository $offerRepository, UserRepository $userRepository)
+	{
+		$this->offerRepository = $offerRepository;
+		$this->userRepository = $userRepository;
+	}
+
+	public function testApi()
+	{
 		$merchant = array(
 			'client_id' => 'trd1fs9hkwj5qg1ko009sc78gp3fpfl',
 			'auth_token' => 'p5oj5sf04im8os9s6l4xvg2jdd4f6lr',
@@ -61,7 +66,48 @@ class OfferController extends Controller
 		return 'Product list';
 	}
 
-	public function store(Request $request) {
+	public function index(Request $request)
+	{
+		// $merchant = array(
+		// 	'client_id' => 'trd1fs9hkwj5qg1ko009sc78gp3fpfl',
+		// 	'auth_token' => 'p5oj5sf04im8os9s6l4xvg2jdd4f6lr',
+		// 	'store_hash' => '459zlh8ulo'
+		// );
+
+		if(!Auth::check())
+			return response()->json([], 401);
+		$userId = Auth::id();
+		
+
+		$merchantInfo = $this->userRepository->user($userId, ['client_id', 'auth_token', 'store_hash']);
+		$userOffers = $this->offerRepository->getAllUserOffer($userId, ['base_product_id']);
+		$offers = array();
+		foreach($userOffers as $userOffer) {
+			array_push($offers, $userOffer['base_product_id']);
+		}
+		$params = array(
+			"id:in" => implode(',', $offers),
+		);
+		$products = OfferLib::getProductList($merchantInfo->toArray()[0], $params);
+		$offers = array();
+		foreach ($products as $product) {
+			$item = [
+				'name' => $product->name,
+                'address' => 'No. 189, Grove St, Los Angeles',
+                'group_name' => 'Group Name',
+                'date' => '2016-05-02',
+                'cvs_rate' => '35%',
+                'aov' => '$234.04',
+                'views' => 142,
+			];
+			array_push($offers, $item);
+		}
+		
+		return response()->json(['pageInfo' => $userOffers, 'data' => $offers], 200);
+	}
+
+	public function store(Request $request)
+	{
 		$data = $request->all();
 
 		$offer = new Offer;
@@ -73,18 +119,18 @@ class OfferController extends Controller
 		$offer->save();
 
 		return $data;
-        // $data = array_merge($data, [
-        //     'start_time' => Helper::formatDate($data['start_time']),
-        //     'end_time' => Helper::formatDate($data['end_time']),
-        //     'exam_time' => Helper::formatDate($data['exam_time']),
-        //     'exam_end_time' => Helper::formatDate($data['exam_end_time'])
-        // ]);
-        // try {
-        //     $this->courseRepository->store($data);
-        //     return $this->response(true, 'thêm mới thành công');
-        // } catch(\Exception $ex) {
-        //     Log::error('Create new item: fail. message: '.$ex->getMessage().'. file: '.$ex->getFile().'. line: '.$ex->getLine());
-        //     return $this->response(false, 'thêm mới không thành công');
-        // }
+		// $data = array_merge($data, [
+		//     'start_time' => Helper::formatDate($data['start_time']),
+		//     'end_time' => Helper::formatDate($data['end_time']),
+		//     'exam_time' => Helper::formatDate($data['exam_time']),
+		//     'exam_end_time' => Helper::formatDate($data['exam_end_time'])
+		// ]);
+		// try {
+		//     $this->courseRepository->store($data);
+		//     return $this->response(true, 'thêm mới thành công');
+		// } catch(\Exception $ex) {
+		//     Log::error('Create new item: fail. message: '.$ex->getMessage().'. file: '.$ex->getFile().'. line: '.$ex->getLine());
+		//     return $this->response(false, 'thêm mới không thành công');
+		// }
 	}
 }

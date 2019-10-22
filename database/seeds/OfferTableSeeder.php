@@ -29,7 +29,7 @@ class OfferTableSeeder extends Seeder
                 "updated_at" => \Carbon\Carbon::now()
             ];
             array_push($offers, $item);
-        }
+        } 
         DB::table("offers")->insert($offers);
     }
 }

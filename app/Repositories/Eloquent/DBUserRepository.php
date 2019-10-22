@@ -21,4 +21,9 @@ class DBUserRepository extends DBRepository implements UserRepository
     {
         return $this->model->where('type', $type)->orderBy('id', 'desc')->paginate($per);
     }
+
+    public function user($user_id = 1, $cols = ['*'])
+    {
+        return User::where('id', $user_id)->get($cols);
+    }
 }

@@ -26,9 +26,11 @@ class OfferLib
         return $headers;
     }
 
-    public static function getProductList($merchant) {
+    public static function getProductList($merchant, $params = []) {
         OfferLib::configure($merchant);
-        $products = Bigcommerce::getProducts();
+        $params["page"] = (empty($params["page"])) ? 1 : $params["page"];
+        $params["limit"] = (empty($params["limit"])) ? 10 : $params["limit"];
+        $products = Bigcommerce::getProducts($params);
         return $products;
     }
 
