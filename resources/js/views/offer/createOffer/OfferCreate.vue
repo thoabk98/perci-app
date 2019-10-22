@@ -44,14 +44,14 @@
                                     <div class="target-wrapper">
                                         <h5><i class="el-icon-aim"></i>&nbsp;&nbsp;Target Products</h5>
                                         <p>Order with Target Products will trigger the popup</p>
-                                        <el-button class="popup-btn" type="text" @click="dialogVisible = true" icon="el-icon-edit-outline">Edit</el-button>
+                                        <el-button class="popup-btn" type="text" @click="dialogShow" icon="el-icon-edit-outline">Edit</el-button>
                                         <el-dialog
                                             title="Select Product"
                                             :visible.sync="dialogVisible"
                                             width="60%"
                                             >
 
-                                            <div class="row">
+                                            <div class="row" v-loading.body="loading">
                                                 <div class="col-md-6">
                                                     <el-input
                                                         placeholder="Search products, colecttions,..."
@@ -66,20 +66,22 @@
                                                         <h4 style="display: inline-block">Results</h4>
                                                         <el-button type="text" style="float: right;">Select all</el-button>
                                                     </div>
-                                                    <div class="wrapper results-wrapper">
-                                                        <div style="padding: 1rem 0;">
-                                                            <img width="30" src="#" style="vertical-align: super;">
-                                                            <div style="width: 35%; display: inline-block; padding-left: 1rem;"><strong>Arabian Chair</strong><br><strong>$300</strong></div>
-                                                            <el-button style="float: right; padding: 1rem; margin-left: 1rem;" type="text">ADD</el-button>
-                                                            <el-select style="float: right; width: 40%" v-model="value" placeholder="Select">
-                                                                <el-option
-                                                                    v-for="item in options"
-                                                                    :key="item.value"
-                                                                    :label="item.label"
-                                                                    :value="item.value">
-                                                                </el-option>
-                                                            </el-select>
-                                                        </div>
+                                                    <div class="wrapper results-wrapper" style="overflow:auto" v-infinite-scroll="load" infinite-scroll-disabled="disabled">
+                                                            <div v-for="item in product_list" style="padding: 1rem 0;" >
+                                                                    <img width="30" v-bind:src="item.image" style="vertical-align: super;">
+                                                                    <div style="width: 35%; display: inline-block; padding-left: 1rem;"><strong>{{ item.name }}</strong><br><strong>{{ item.price }}</strong></div>
+                                                                    <el-button style="float: right; padding: 1rem; margin-left: 1rem;" @click="addListChoose(item)" type="text">ADD</el-button>
+                                                                    <!--<el-select style="float: right; width: 40%" v-model="value" placeholder="Select">-->
+                                                                    <!--<el-option-->
+                                                                    <!--v-for="item in options"-->
+                                                                    <!--:key="item.value"-->
+                                                                    <!--:label="item.label"-->
+                                                                    <!--:value="item.value">-->
+                                                                    <!--</el-option>-->
+                                                                    <!--</el-select>-->
+                                                            </div>
+                                                            <p v-if="scroll_loading">Loading...</p>
+
                                                     </div>
                                                 </div>
                                                 <div class="col-md-6">
@@ -88,18 +90,18 @@
                                                         <el-button style="float: right;" type="text">Remove all</el-button>
                                                     </div>
                                                     <div class="wrapper selected-wrapper">
-                                                        <div style="padding: 1rem 0;">
-                                                            <img width="30" src="#" style="vertical-align: super;">
-                                                            <div style="width: 35%; display: inline-block; padding-left: 1rem;"><strong>Arabian Chair</strong><br><strong>$300</strong></div>
-                                                            <el-button style="float: right; padding: 1rem; margin-left: 1rem;" type="text"><i class="el-icon-delete-solid"></i></el-button>
-                                                            <el-select style="float: right; width: 40%" v-model="value" placeholder="Select">
-                                                                <el-option
-                                                                    v-for="item in options"
-                                                                    :key="item.value"
-                                                                    :label="item.label"
-                                                                    :value="item.value">
-                                                                </el-option>
-                                                            </el-select>
+                                                        <div style="padding: 1rem 0;" v-if="product_list_choose.length" v-for="it in product_list_choose">
+                                                            <img width="30" v-bind:src="it.image" style="vertical-align: super;">
+                                                            <div style="width: 35%; display: inline-block; padding-left: 1rem;"><strong>{{ it.name }}</strong><br><strong>${{ it.price }}</strong></div>
+                                                            <el-button style="float: right; padding: 1rem; margin-left: 1rem;" type="text" @click="removeItemListChoose(it)"><i class="el-icon-delete-solid"></i></el-button>
+                                                            <!--<el-select style="float: right; width: 40%" v-model="value" placeholder="Select">-->
+                                                                <!--<el-option-->
+                                                                    <!--v-for="item in options"-->
+                                                                    <!--:key="item.value"-->
+                                                                    <!--:label="item.label"-->
+                                                                    <!--:value="item.value">-->
+                                                                <!--</el-option>-->
+                                                            <!--</el-select>-->
                                                         </div>
                                                     </div>
                                                 </div>
@@ -205,6 +207,13 @@ export default {
             displayRadio: '',
             isActive: false,
             dialogVisible: false,
+            loading: false,
+            product_list: [],
+            product_list_choose: [],
+            scroll_loading: false,
+            page: 1,
+            limit: 10,
+            total: 0,
         }
     },
     methods: {
@@ -226,6 +235,16 @@ export default {
             this.$emit("nextStep", 2, this.offer);
             this.submitForm();
         },
+        getListProduct(object = {}){
+            axios.get(route('api.product.get', object))
+                .then(res=>{
+                    this.loading = false;
+                    this.product_list = this.product_list.concat(res.data.data.data);
+                    this.total = res.data.data.total;
+                    this.page += 1;
+                    this.scroll_loading = false;
+                })
+        },
         submitForm() {
             var form = new Form(this.offer)
             form.post(route('offer.store'))
@@ -233,11 +252,47 @@ export default {
                     console.log(res);
                 })
                 .catch();
+        },
+        dialogShow(){
+            this.loading = true;
+            if(this.product_list.length == 0){
+                this.getListProduct();
+            }
+            this.dialogVisible = true;
+        },
+        load () {
+            if(this.page > 1 && (this.page - 1)*5 < this.total){
+                //console.log(1);
+                this.scroll_loading = true;
+                this.getListProduct({
+                    page: this.page,
+                });
+            }
+        },
+        addListChoose(object){
+            this.product_list_choose.push(object);
+            var index = this.product_list.map(x => {
+                return x.id;
+            }).indexOf(object.id);
+            this.product_list.splice(index, 1);
+        },
+        removeItemListChoose(object){
+            this.product_list.push(object);
+            var index = this.product_list_choose.map(x => {
+                return x.id;
+            }).indexOf(object.id);
+            this.product_list_choose.splice(index, 1);
         }
     },
     components: {
         OfferProductList
     },
+    computed: {
+        disabled () {
+            return this.scroll_loading
+        }
+    },
+
     props: [ 'offer' ]
 }
 </script>

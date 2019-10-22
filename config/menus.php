@@ -19,46 +19,46 @@ return [
         'authorize' => [],
         'tag' => "",
         'sub'   => [
-            'student' => [
+            'upsell' => [
                 'name' => 'student',
-                'text' => 'Danh sách học viên',
-                'icon' => 'fa fa-users',
-                'router' => '/admin/student/students',
+                'text' => 'Upsell',
+                'icon' => '',
+                'router' => '/ult-upsell/offer/',
                 'order' => 1,
                 'authorize' => [],
             ],
-            'dang-ky-hoc' => [
+            'cross-sell' => [
                 'name' => 'dang-ky-hoc',
-                'text' => 'Đăng ký học',
-                'icon' => 'fa fa-user',
+                'text' => 'CrossSell',
+                'icon' => '',
                 'router' => '/admin/student/create',
                 'order' => 1,
                 'authorize' => [],
             ],
-            'group-create' => [
-                'name' => 'group-create',
-                'text' => 'Đăng kí nhóm',
-                'icon' => 'fa fa-user-plus',
-                'router' => '/admin/group/create',
-                'order' => 1,
-                'authorize' => [],
-            ],
-            'group' => [
-                'name' => 'group',
-                'text' => 'Danh sách nhóm',
-                'icon' => 'fa fa-users',
-                'router' => '/admin/group/groups',
-                'order' => 1,
-                'authorize' => [],
-            ],
-            'practice' => [
-                'name' => 'practice',
-                'text' => 'Lịch thực hành',
-                'icon' => 'fa fa-users',
-                'router' => '/admin/practice/practices',
-                'order' => 1,
-                'authorize' => [],
-            ]
+//            'group-create' => [
+//                'name' => 'group-create',
+//                'text' => 'Đăng kí nhóm',
+//                'icon' => 'fa fa-user-plus',
+//                'router' => '/admin/group/create',
+//                'order' => 1,
+//                'authorize' => [],
+//            ],
+//            'group' => [
+//                'name' => 'group',
+//                'text' => 'Danh sách nhóm',
+//                'icon' => 'fa fa-users',
+//                'router' => '/admin/group/groups',
+//                'order' => 1,
+//                'authorize' => [],
+//            ],
+//            'practice' => [
+//                'name' => 'practice',
+//                'text' => 'Lịch thực hành',
+//                'icon' => 'fa fa-users',
+//                'router' => '/admin/practice/practices',
+//                'order' => 1,
+//                'authorize' => [],
+//            ]
 
         ]
     ],

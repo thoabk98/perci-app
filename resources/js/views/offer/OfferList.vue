@@ -11,7 +11,7 @@
         <div class='content'>
             <div class="row">
                 <div class="col-xs-7">
-                    <el-button class="create-new-btn">Create new &nbsp;&nbsp;&nbsp;&nbsp;<span>+</span></el-button>
+                    <el-button class="create-new-btn" @click="gotoEdit">Create new &nbsp;&nbsp;&nbsp;&nbsp;<span>+</span></el-button>
                 </div>
                 <div class="col-xs-5">
                     <template>
@@ -86,6 +86,9 @@ export default {
         },
         handleDelete(index, row) {
             console.log(index, row);
+        },
+        gotoEdit() {
+            this.$router.push({ name: 'offer.new'});
         },
     },
 }
