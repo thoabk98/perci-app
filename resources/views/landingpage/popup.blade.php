@@ -6,13 +6,13 @@
 
 @section('content')
 <!-- Button trigger modal -->
-<button type="button" data-toggle="modal" data-target=".ult-upsell">
+<button type="button" data-toggle="modal" data-target="#popup-modal">
     Large modal
 </button>
 
 <!-- Modal -->
 
-<div class="ult-upsell modal fade bd-example-modal-lg" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
+<div id="popup-modal" class="ult-upsell modal fade bd-example-modal-lg" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
     <div class="modal-dialog popup-modal-dialog popup-modal-lg">
         <div class="popup-modal-content">
             <div class="popup-modal-body">
@@ -20,7 +20,7 @@
                     <h3>LIMITED TIME OFFER!</h3>
                 </div>
                 <div class="popup-des">Add these Items and Save</div>
-            
+
                 <div class="flex popup-content">
                     <div class="column left-container "><img class="round-border" width="290" src="{{ asset('landingpage/images/g3.jpg') }}" class="img-fluid" alt="" /></div>
                     <div class="column right-container ">
