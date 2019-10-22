@@ -19,6 +19,7 @@ class AppServiceProvider extends ServiceProvider
             'UserLogin',
             'User',
             'Course',
+            'Offer',
         ];
         foreach($models as $model)
             app()->bind('App\Repositories\\'.$model.'Repository',

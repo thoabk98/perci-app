@@ -2,6 +2,7 @@
 	<div>
 		<el-table
 			:data="offers"
+			v-loading.body="isLoading"
 			style="width: 100%"
 			column-gap="40px">
 			<el-table-column
@@ -64,7 +65,11 @@
 		<el-pagination
 			class="text-center"
 			layout="prev, pager, next"
-			:total="1000">
+			:total="total"
+			:page-size="per_page"
+			:current-page="current_page"
+			@current-change="handleCurrentChange"
+			>
 		</el-pagination>
 	</div>
 </template>
@@ -72,10 +77,39 @@
 <script>
 	export default {
 		name: 'offer-list-table',
+		data() {
+			return {
+				per_page: 4,
+				current_page: 1,
+				offersPage: [],		
+				isLoading: false
+			}
+		},
 		props: {
 			offers: {
 				type: Array
+			},
+			total: {
+				type: Number
 			}
+		},
+		methods: {
+			handleCurrentChange(val) {
+				this.current_page = val;
+				this.fetchData(val);
+			},
+			fetchData(page='1') {
+				this.isLoading = true;
+				axios.get('/api/offers' + '?page=' + page).then((response) => {
+					console.log(response.data);
+					this.offers = Object.values(response.data.data);
+					this.total = response.data.pageInfo.total;
+					this.isLoading = false;
+				});
+			},
+		},
+		mounted: function () {
+			this.fetchData();
 		}
     }
 </script>
