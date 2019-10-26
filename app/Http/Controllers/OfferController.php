@@ -8,7 +8,9 @@ use App\Models\Offer;
 use Illuminate\Support\Facades\Log;
 use App\Repositories\OfferRepository;
 use App\Repositories\UserRepository;
+use Exception;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\DB;
 
 class OfferController extends Controller
 {
@@ -90,7 +92,7 @@ class OfferController extends Controller
 		);
 		$products = OfferLib::getProductList($merchantInfo->toArray()[0], $params);
 		$offers = array();
-		foreach ($products as $product) {
+		foreach ($products->data as $product) {
 			$item = [
 				'name' => $product->name,
                 'address' => 'No. 189, Grove St, Los Angeles',
@@ -108,15 +110,34 @@ class OfferController extends Controller
 
 	public function store(Request $request)
 	{
-		$data = $request->all();
+		// $data = [
+		// 	'content' => json_encode($request->content),
+		// 	'client_id' => Auth::id(),
+		// 	'positon' => $request->position,
+		// 	'type' => $request->type,
+		// 	'custom_template_id' => $request->custom_template_id,
+		// ];
+		if(!Auth::check())
+			return response()->json(['message' => 'Unauthorized'], 401);
 
-		$offer = new Offer;
-		$offer->user_id = 1;
-		$offer->base_product_id = 77;
-		$offer->type = $data["type"];
-		$offer->position = $data["position"];
-		$offer->content = json_encode($data["content"]);
-		$offer->save();
+		$data = [];
+		foreach ($request->offer_product_id as $key => $id) {
+			array_push($data, array(
+				'user_id' => Auth::id(),
+				'base_product_id' => $id,
+				'type' => $request->type,
+				'position' => $request->position,
+				'content' => json_encode($request->content),
+				'customer_template_id' => $request->customer_template_id
+			));
+		}
+
+		try {
+			DB::table("offers")->insert($data);
+			return response()->json(['status' => true, 'message' => 'insert success'], 201);
+		} catch(Exception $e) {
+			return response()->json(['status' => false, 'message' => 'insert failed ' . $e->getMessage()], 500);
+		}
 
 		return $data;
 		// $data = array_merge($data, [

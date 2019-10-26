@@ -230,7 +230,13 @@ export default {
                 groupName: this.groupName,
                 headLine: this.headline,
                 description: this.description
-            }
+            };
+            /* selected product id*/
+            var offer_product_id = [];
+            this.product_list_choose.forEach(function(element) {
+                offer_product_id.push(element.id);
+            });
+            this.offer.offer_product_id = offer_product_id;
             this.offer.content = content;
             this.$emit("nextStep", 2, this.offer);
             this.submitForm();
@@ -246,8 +252,9 @@ export default {
                 })
         },
         submitForm() {
-            var form = new Form(this.offer)
-            form.post(route('offer.store'))
+            var form = new Form(this.offer);
+            console.log(form);
+            form.post('/api/offer/')
                 .then(res => {
                     console.log(res);
                 })
