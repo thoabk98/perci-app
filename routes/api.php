@@ -6,13 +6,17 @@ use Illuminate\Routing\Router;
 /**@var Router $router * */
 
 $router->group(['middleware' => ['web', 'auth']], function (Router $router) {
+    $router->group(['prefix' => 'offer'], function (Router $router) {
+        $router->post('/', 'OfferController@store');
+    });
     $router->get('/offers', 'OfferController@index');
     $router->group(['prefix' => 'product'], function (Router $router) {
         $router->get('/get', [
             'as' => 'api.product.get',
             'uses' => 'ProductController@get'
         ]);
-    }
+    });
+
 //    $router->group(['prefix' => 'teacher'], function (Router $router) {
 //
 //        $router->get('/all', [
