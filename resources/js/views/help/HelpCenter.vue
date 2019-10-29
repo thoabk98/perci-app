@@ -382,15 +382,35 @@ export default {
 		onSubmit(formName) {
 			this.$refs[formName].validate(valid => {
 				if (valid) {
-					alert("submit!");
 					axios
 						.post("/ult-upsell/help-center", {
 							email: this.form.email,
 							title: this.form.title,
 							question: this.form.question
 						})
+						.then(response => {
+							console.log(response);
+							if (response.data.success == true) {
+								this.$message({
+									showClose: true,
+									message: response.data.msg,
+									type: "success"
+								});
+							} else {
+								this.$message({
+									showClose: true,
+									message: response.data.msg,
+									type: "warning"
+								});
+							}
+						})
 						.catch(error => {
 							console.log(error);
+							this.$message({
+								showClose: true,
+								message: error.response.data.message,
+								type: "warning"
+							});
 						});
 					this.dialogFormVisible = false;
 				} else {
@@ -399,13 +419,34 @@ export default {
 				}
 			});
 			/*axios
-				.post("/ult-upsell/mail", {
+				.post("/ult-upsell/help-center", {
 					email: this.form.email,
 					title: this.form.title,
 					question: this.form.question
 				})
+				.then(response => {
+					console.log(response);
+					if (response.data.success == true) {
+						this.$message({
+							showClose: true,
+							message: response.data.msg,
+							type: "success"
+						});
+					} else {
+						this.$message({
+							showClose: true,
+							message: response.data.msg,
+							type: "warning"
+						});
+					}
+				})
 				.catch(error => {
 					console.log(error);
+					this.$message({
+						showClose: true,
+						message: error.response.data.message,
+						type: "warning"
+					});
 				});
 			this.dialogFormVisible = false;*/
 		}

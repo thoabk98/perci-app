@@ -35,7 +35,7 @@ $router->group(['prefix' => 'ult-upsell', 'middleware' => ['web', 'auth']], func
     });
     $router->get('report', 'AdminController@index');
     $router->get('help-center', 'AdminController@index');
-    $router->post('help-center','EmailController@store');
+    $router->post('help-center','HelpController@store');
 
     // $router->get('/import', 'HomeController@import')->name('import');
     // $router->post('/import', 'HomeController@importPost')->name('import.post');
