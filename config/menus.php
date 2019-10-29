@@ -104,7 +104,7 @@ return [
         'name' => 'faq',
         'text' => 'FAQs',
         'icon' => 'fa fa-question-circle',
-        'router' => '/admin/class/classes',
+        'router' => '/ult-upsell/help-center',
         'order' => 5,
         'tag' => "",
         'authorize' => [],
