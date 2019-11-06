@@ -7,7 +7,7 @@ use Illuminate\Database\Eloquent\SoftDeletes;
 
 class Offer extends Model
 {
-    use SoftDeletes;
+    //use SoftDeletes;
     protected $table = 'offers';
 
     protected $fillable = ['base_product_id', 'type', 'position', 'content', 'customer_template_id'];

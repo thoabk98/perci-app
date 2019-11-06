@@ -7,7 +7,25 @@ use GuzzleHttp\Client as GuzzleHttp;
 
 class OfferLib
 {
-    public static function configure($merchant)
+    public $client_id;
+    public $auth_token;
+    public $store_hash;
+    public $headers;
+
+    public function __construct($user){
+        $this->client_id = $user->client_id;
+        $this->auth_token = $user->auth_token;
+        $this->store_hash = $user->store_hash;
+
+        $this->headers = [
+            'accept' => 'application/json',
+            'content-type' => 'application/json',
+            'x-auth-client' => $this->client_id,
+            'x-auth-token' => $this->auth_token
+        ];
+    }
+
+    public function configure($merchant)
     {
         Bigcommerce::configureOAuth(array(
             'client_id' => $merchant['client_id'],
@@ -16,17 +34,7 @@ class OfferLib
         ));
     }
 
-    public static function configureHeader($merchant) {
-        $headers = [
-            'accept' => 'application/json',
-            'content-type' => 'application/json',
-            'x-auth-client' => $merchant['client_id'],
-            'x-auth-token' => $merchant['auth_token']
-        ];
-        return $headers;
-    }
-
-    public static function getProductList($merchant, $params = []) {
+    public function getProductList($params = []) {
         OfferLib::configure($merchant);
         $params["page"] = (empty($params["page"])) ? 1 : $params["page"];
         $params["limit"] = (empty($params["limit"])) ? 10 : $params["limit"];
@@ -34,16 +42,15 @@ class OfferLib
         return $products;
     }
 
-    public static function getThemeRegions($merchant) {
+    public function getThemeRegions() {
         $client = new GuzzleHttp();
-        $headers = OfferLib::configureHeader($merchant);
         $query = [
             'templateFile' => 'pages/product'
         ];
         $res = $client->request(
-            'GET', 'https://api.bigcommerce.com/stores/' . $merchant['store_hash'] . '/v3/content/regions',
+            'GET', 'https://api.bigcommerce.com/stores/' . $this->store_hash . '/v3/content/regions',
             [
-                'headers' => $headers,
+                'headers' => $this->headers,
                 'query' => $query
             ]
         );
@@ -58,14 +65,13 @@ class OfferLib
     ];
     $template = json_encode($template);
     */
-    public static function createWidgetTemplate($merchant, $template, $region = null) {
+    public function createWidgetTemplate($template, $region = null) {
         $client = new GuzzleHttp();
-        $headers = OfferLib::configureHeader($merchant);
         $body = $template;
         $res = $client->request(
-            'POST', 'https://api.bigcommerce.com/stores/' . $merchant['store_hash'] . '/v3/content/widget-templates',
+            'POST', 'https://api.bigcommerce.com/stores/' . $this->store_hash . '/v3/content/widget-templates',
             [
-                'headers' => $headers,
+                'headers' => $this->headers,
                 'body' => $body
             ]
         );
@@ -81,14 +87,13 @@ class OfferLib
     ];
     $widgetConfig = json_encode($widget);
     */
-    public static function createWidget($merchant, $widgetConfig) {
+    public function createWidget($widgetConfig) {
         $client = new GuzzleHttp();
-        $headers = OfferLib::configureHeader($merchant);
         $body = $widgetConfig;
         $res = $client->request(
-            'POST', 'https://api.bigcommerce.com/stores/' . $merchant['store_hash'] . '/v3/content/widgets',
+            'POST', 'https://api.bigcommerce.com/stores/' . $this->store_hash . '/v3/content/widgets',
             [
-                'headers' => $headers,
+                'headers' => $this->headers,
                 'body' => $body
             ]
         );
@@ -105,14 +110,13 @@ class OfferLib
     ];
     $placementConfig = json_encode($placement);
     */
-    public static function createPlacement($merchant, $placementConfig) {
+    public function createPlacement($placementConfig) {
         $client = new GuzzleHttp();
-        $headers = OfferLib::configureHeader($merchant);
         $body = $placementConfig;
         $res = $client->request(
-            'POST', 'https://api.bigcommerce.com/stores/' . $merchant['store_hash'] . '/v3/content/placements',
+            'POST', 'https://api.bigcommerce.com/stores/' . $this->store_hash . '/v3/content/placements',
             [
-                'headers' => $headers,
+                'headers' => $this->headers,
                 'body' => $body
             ]
         );
@@ -132,14 +136,13 @@ class OfferLib
         "kind": "src"
     }
     */
-    public static function createScript($merchant, $scriptConfig) {
+    public function createScript($scriptConfig) {
         $client = new GuzzleHttp();
-        $headers = OfferLib::configureHeader($merchant);
         $body = $scriptConfig;
         $res = $client->request(
-            'POST', 'https://api.bigcommerce.com/stores/' . $merchant['store_hash'] . '/v3/content/scripts',
+            'POST', 'https://api.bigcommerce.com/stores/' . $this->store_hash . '/v3/content/scripts',
             [
-                'headers' => $headers,
+                'headers' => $this->headers,
                 'body' => $body
             ]
         );
@@ -147,26 +150,37 @@ class OfferLib
         return $script;
     }
 
-    public static function getAllProductImages($merchant, $productId) {
+    public function getAllProductImages($productId) {
         $client = new GuzzleHttp();
-        $headers = OfferLib::configureHeader($merchant);
         $res = $client->request(
-            'GET', 'https://api.bigcommerce.com/stores/' . $merchant['store_hash'] . '/v3/catalog/products/' . $productId . '/images',
+            'GET', 'https://api.bigcommerce.com/stores/' . $this->store_hash . '/v3/catalog/products/' . $productId . '/images',
             [
-                'headers' => $headers,
+                'headers' => $this->headers,
             ]
         );
         $images = json_decode($res->getBody()->getContents(), true)['data'];
         return $images;
     }
 
-    public static function getProductThumbnailUrl($merchant, $productId) {
-        $images = OfferLib::getAllProductImages($merchant, $productId);
+    public function getProductThumbnailUrl($productId) {
+        $images = $this->getAllProductImages($productId);
         foreach ($images as $image) {
             if ($image['is_thumbnail']) {
                 return $image['url_thumbnail'];
             }
         }
         return $image[0]['url_thumbnail'];
+    }
+
+    public function getProduct($productId) {
+        $client = new GuzzleHttp();
+        $res = $client->request(
+            'GET', 'https://api.bigcommerce.com/stores/' . $this->store_hash . '/v3/catalog/products/' . $productId,
+            [
+                'headers' => $this->headers,
+            ]
+        );
+        $data = json_decode($res->getBody()->getContents(), true)['data'];
+        return $data;
     }
 }
