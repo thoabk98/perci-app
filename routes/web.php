@@ -9,7 +9,9 @@ $router->get('/policy', 'LandingPageController@privacyPolicy')->name('landingpag
 $router->get('/faq', 'LandingPageController@faq')->name('landingpage.faq');
 $router->get('ult-upsell/login', 'Auth\LoginController@showLoginForm')->name('login')->middleware('guest');
 $router->post('ult-upsell/login', 'Auth\LoginController@login');
-$router->get('/store-popup', 'LandingPageController@popup')->name('landingpage.popup');
+// $router->get('/store-popup', 'LandingPageController@popup')->name('landingpage.popup');
+$router->get('/store-popup', 'LandingPageController@popupTest')->name('landingpage.popup');
+
 // $router->get('hoc-vien/dang-nhap', 'Auth\LoginController@showLoginForm')->name('login')->middleware('guest');
 // $router->post('hoc-vien/dang-nhap', 'Auth\LoginController@studentLogin');
 // $router->get('giao-vien/dang-nhap', 'Auth\LoginController@showLoginForm')->name('login')->middleware('guest');
@@ -32,10 +34,14 @@ $router->group(['prefix' => 'ult-upsell', 'middleware' => ['web', 'auth']], func
 
         $router->get('test', 'OfferController@testApi');
         $router->post('/', 'OfferController@store')->name('offer.store');
+
     });
     $router->get('report', 'AdminController@index');
     $router->get('help-center', 'AdminController@index');
     $router->post('help-center','HelpController@store');
+
+    $router->get('add-widget', 'OfferController@addWidgetToStorefront');
+    $router->get('add-script', 'OfferController@addScriptsToStorefront');
 
     // $router->get('/import', 'HomeController@import')->name('import');
     // $router->post('/import', 'HomeController@importPost')->name('import.post');

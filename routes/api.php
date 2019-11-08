@@ -5,6 +5,8 @@ use Illuminate\Routing\Router;
 
 /**@var Router $router * */
 
+$router->get('popup-content', 'StorefrontController@popupContent');
+
 $router->group(['middleware' => ['web', 'auth']], function (Router $router) {
     $router->group(['prefix' => 'offer'], function (Router $router) {
         $router->post('/', 'OfferController@store');

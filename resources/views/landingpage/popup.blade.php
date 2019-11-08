@@ -6,13 +6,13 @@
 
 @section('content')
 <!-- Button trigger modal -->
-<button type="button" data-toggle="modal" data-target=".ult-upsell">
+<button type="button" data-toggle="modal" data-target="#popup-modal">
     Large modal
 </button>
 
 <!-- Modal -->
 
-<div class="ult-upsell modal fade bd-example-modal-lg" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
+<div id="popup-modal" class="ult-upsell modal fade bd-example-modal-lg" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
     <div class="modal-dialog popup-modal-dialog popup-modal-lg">
         <div class="popup-modal-content">
             <div class="popup-modal-body">
@@ -20,19 +20,22 @@
                     <h3>LIMITED TIME OFFER!</h3>
                 </div>
                 <div class="popup-des">Add these Items and Save</div>
-            
+
                 <div class="flex popup-content">
-                    <div class="column left-container "><img class="round-border" width="290" src="{{ asset('landingpage/images/g3.jpg') }}" class="img-fluid" alt="" /></div>
+                    <div class="column left-container "><img class="round-border" width="290" src="{{ $offer_item->image }}" class="img-fluid" alt="" /></div>
                     <div class="column right-container ">
-                        <h4>Apple Macbook Pro</h4>
+                        <h4>{{ $offer_item->data["name"] }}</h4>
                         <ul class="info">
                             <li class="name">Laptop - Classic Rose</li>
-                            <li class="price"><s style="color: #6c757d;">$990.00</s><span style="color: #28a745; margin-left: 1rem;">$890.00</span></li>
-                            <li class="color">Colors</li>
+                            <li class="price">
+                                <span style="color: #28a745;">${{ $offer_item->data["calculated_price"] }}</span>
+                                <s style="color: #6c757d; margin-left: 1rem; ">{{ $offer_item->data["calculated_price"] < $offer_item->data["price"] ?  "$" . $offer_item->data["price"] : "" }}</s>
+                            </li>
+                            {{-- <li class="color">Colors</li>
                             <ul>
                                 <li class="inline"><button type="button" class="color-picker popup-button"></button></li>
                                 <li class="inline"><button type="button" class="color-picker popup-button"></button></li>
-                            </ul>
+                            </ul> --}}
                         </ul>
                         <button type="button" class="add-to-cart popup-button round-border column">Add to cart</button>
                     </div>
@@ -40,7 +43,6 @@
             </div>
         </div>
     </div>
-</div>
 </div>
 @endsection
 

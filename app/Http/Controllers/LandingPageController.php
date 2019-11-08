@@ -30,4 +30,9 @@ class LandingPageController extends Controller
     {
         return view('landingpage.popup');
     }
+
+    public function popupTest()
+    {
+        return view('storefront.popup-widget');
+    }
 }
