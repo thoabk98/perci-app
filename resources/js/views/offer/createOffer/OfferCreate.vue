@@ -25,7 +25,7 @@
                         <h3>Basic Info</h3>
                         <div class="input-wrapper">
                             <span class="input-title">Offer's name</span>
-                            <el-input placeholder="Upsell Product "v-model="offerName"></el-input>
+                            <el-input placeholder="Upsell Product " v-model="offerName"></el-input>
                         </div>
                         <div class="input-wrapper">
                             <span class="input-title">Group's name</span>
@@ -42,13 +42,14 @@
                             <ul>
                                 <li>
                                     <div class="target-wrapper">
-                                        <h5><i class="el-icon-aim"></i>&nbsp;&nbsp;Target Products</h5>
+                                        <h5><i class="el-icon-aim"></i>&nbsp;&nbsp;Target Products<span>&nbsp;( {{product_list_choose.length}} product(s) selected )</span></h5>
                                         <p>Order with Target Products will trigger the popup</p>
+                                        <p v-for="product in product_list_choose">{{product.name}}</p>
                                         <el-button class="popup-btn" type="text" @click="dialogShow" icon="el-icon-edit-outline">Edit</el-button>
                                         <el-dialog
                                             title="Select Product"
                                             :visible.sync="dialogVisible"
-                                            width="60%"
+                                            width="80%"
                                             >
 
                                             <div class="row" v-loading.body="loading">
@@ -60,7 +61,25 @@
                                                     </el-input>
                                                 </div>
                                             </div>
-                                            <div class="row">
+                                            <div class="row" v-if="offer.type == 1">
+                                                <div class="wrapper results-wrapper" style="overflow:auto" v-infinite-scroll="load" infinite-scroll-disabled="disabled">
+                                                    <div v-for="item in product_list" style="padding: 4rem 0;" >
+                                                            <img width="30" v-bind:src="item.image" style="vertical-align: super;">
+                                                            <div style="width: 35%; display: inline-block; padding-left: 1rem;"><strong>{{ item.name }}</strong><br><strong>{{ item.price }}</strong></div>
+                                                            <el-select v-model="variants" placeholder="Select">
+                                                                <el-option
+                                                                v-for="item in variantOptions"
+                                                                :key="item.value"
+                                                                :label="item.label"
+                                                                :value="item.value">
+                                                                </el-option>
+                                                            </el-select>
+                                                            <el-button style="float: right; padding: 1rem; margin-left: 1rem;" @click="addUpsellListChoose(item)" type="radio"></el-button>
+                                                    </div>
+                                                    <p v-if="scroll_loading">Loading...</p>
+                                                </div>
+                                            </div>
+                                            <div class="row" v-if="offer.type == 2">
                                                 <div class="col-md-6">
                                                     <div class="head">
                                                         <h4 style="display: inline-block">Results</h4>
@@ -214,6 +233,21 @@ export default {
             page: 1,
             limit: 10,
             total: 0,
+            form: new Form(),
+            variantOptions: [{
+                value: 'Big',
+                label: 'Big'
+            }, {
+                value: 'Medium',
+                label: 'Medium'
+            }]
+        }
+    },
+    watch: {
+        'offerName': function(newVal, oldVal) {
+            // this.form.errors.clear('offerName');
+            if(!newVal)
+                this.form.errors.push
         }
     },
     methods: {
@@ -252,11 +286,22 @@ export default {
                 })
         },
         submitForm() {
-            var form = new Form(this.offer);
-            console.log(form);
-            form.post('/api/offer/')
+            this.form = new Form(this.offer);
+            console.log(this.form);
+            this.form.post('/api/offer/')
                 .then(res => {
-                    console.log(res);
+                    if(res.success) {
+                        this.$message({
+                            message: res.msg,
+                            type: 'success'
+                        });
+                    } else {
+                        this.$notify.error({
+                            title: 'Error',
+                            message: res.msg
+                        });
+                        console.log(res);
+                    }
                 })
                 .catch();
         },
@@ -282,6 +327,13 @@ export default {
                 return x.id;
             }).indexOf(object.id);
             this.product_list.splice(index, 1);
+        },
+        addUpsellListChoose(object){
+            this.product_list_choose = [];
+            this.product_list_choose.push(object);
+            var index = this.product_list.map(x => {
+                return x.id;
+            }).indexOf(object.id);
         },
         removeItemListChoose(object){
             this.product_list.push(object);
