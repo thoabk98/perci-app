@@ -113,7 +113,7 @@ return [
         'name' => 'program',
         'text' => 'Feature requests',
         'icon' => 'fa fa-star',
-        'router' => '/admin/program/programs',
+        'router' => '/ult-upsell/feature-request',
         'order' => 6,
         'tag' => "",
         'authorize' => [],
