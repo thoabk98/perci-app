@@ -1,5 +1,8 @@
 <div id="offer-product-id" data-offer_product_id="{{ $offer_item->data['id'] }}"></div>
 <div class="popup-title">
+    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+        <span aria-hidden="true">&times;</span>
+    </button>
     <h3>LIMITED TIME OFFER!</h3>
 </div>
 <div class="popup-des">Add these Items and Save</div>
