@@ -45,6 +45,7 @@
 .ult-upsell .popup-title {
   padding: 1.5rem 3rem 0;
   font-size: 1.75rem;
+  margin-top: -50px
 }
 .ult-upsell .popup-des {
   padding: 0.5rem 3rem 0;
@@ -153,4 +154,10 @@
   .ult-upsell .popup-modal-lg {
     max-width: 800px;
   }
+}
+
+.close {
+  float: right;
+  font-size: 50px;
+  width: 0px;
 }

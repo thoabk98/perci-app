@@ -52,6 +52,7 @@ $border_color_1: #1c7430;
 	.popup-title {
 		padding: 1.5rem 3rem 0;
 		font-size: 1.75rem;
+		margin-top: -50px;
 	}
 	.popup-des {
 		padding: 0.5rem 3rem 0;
@@ -145,6 +146,11 @@ $border_color_1: #1c7430;
 	&.show {
 		opacity: 0.5;
 	}
+}
+.close {
+	float: right;
+	font-size: 50px;
+	width: 0px;
 }
 @media (min-width: 576px) {
 	.ult-upsell {
