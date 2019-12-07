@@ -25,17 +25,17 @@ class OfferLib
         ];
     }
 
-    public function configure($merchant)
+    public function configure()
     {
         Bigcommerce::configureOAuth(array(
-            'client_id' => $merchant['client_id'],
-            'auth_token' => $merchant['auth_token'],
-            'store_hash' => $merchant['store_hash']
+            'client_id' => $this->client_id,
+            'auth_token' => $this->auth_token,
+            'store_hash' => $this->store_hash
         ));
     }
 
     public function getProductList($params = []) {
-        OfferLib::configure($merchant);
+        $this->configure();
         $params["page"] = (empty($params["page"])) ? 1 : $params["page"];
         $params["limit"] = (empty($params["limit"])) ? 10 : $params["limit"];
         $products = Bigcommerce::getProducts($params);

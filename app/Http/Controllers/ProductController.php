@@ -12,18 +12,13 @@ class ProductController extends AdminController
     public function get(Request $request){
         //dd($request->al())
         $user = Auth::user();
-        $merchant = array(
-            'client_id' => $user->client_id,
-            'auth_token' => $user->auth_token,
-            'store_hash' => $user->store_hash
-        );
+        $offer_lib = new OfferLib($user);
         $params = [];
         if(!empty($request->page)){
             $params['page'] = $request->page;
         }
         $params["include"] = "images";
-        $products = OfferLib::getProductList($merchant, $params);
-
+        $products = $offer_lib->getProductList($params);
         $data = [];
         foreach ($products->data as $product){
             $item = new \stdClass();

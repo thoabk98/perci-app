@@ -45,6 +45,9 @@ $router->group(['prefix' => 'ult-upsell', 'middleware' => ['web', 'auth']], func
     $router->get('add-widget', 'OfferController@addWidgetToStorefront');
     $router->get('add-script', 'OfferController@addScriptsToStorefront');
 
+    $router->get('add-widget', 'OfferController@addWidgetToStorefront');
+    $router->get('add-script', 'OfferController@addScriptsToStorefront');
+
     // $router->get('/import', 'HomeController@import')->name('import');
     // $router->post('/import', 'HomeController@importPost')->name('import.post');
     // $router->group(['prefix'=>'teacher'], function (Router $router) {
