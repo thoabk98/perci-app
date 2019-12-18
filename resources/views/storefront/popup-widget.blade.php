@@ -86,7 +86,7 @@ function addToCart(quantity, cartId, productId, variantId = 0) {
     xhr.send(data);
     xhr.onload= function() {
         console.log("Done add to cart");
-        location.reload();
+        window.location.href = location.origin + "/cart.php";
     }
 }
 </script>
