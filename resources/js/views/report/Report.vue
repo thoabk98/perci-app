@@ -81,7 +81,8 @@
         line-height: 13px;
     }
     .text-center{
-        text-align:left;
+        text-align: left;
+        margin-bottom: 27px;
     }
     .icon-up-color{
         color: #24DA6D;
@@ -217,73 +218,73 @@
                         <div class="box-body">
                             <div class="col-md-2 text-center">
                                 <el-container>
-                                    <el-header>
+                                    <el-header style= "height: 40%">
                                         <span class="container-header">Total Revenue</span>
                                         <br>
-                                        <span class="container-main">$ 2490.53</span>
+                                        <span class="container-main">$ {{overviewData.totalRevenue}}</span>
                                     </el-header>
-                                    <el-footer>
+                                    <el-footer style= "height: 40%">
                                         <i class="el-icon-caret-top icon-up-color"></i> <span class="container-footer">12.4% since yesterday</span>
                                     </el-footer>
                                 </el-container>
                             </div>
                             <div class="col-md-2 text-center">
                                 <el-container>
-                                    <el-header>
+                                    <el-header style= "height: 40%">
                                         <span class="container-header">Impressions</span>
                                         <br>
-                                        <span class="container-main">903</span>
+                                        <span class="container-main">{{overviewData.impressions}}</span>
                                     </el-header>
-                                    <el-footer>
+                                    <el-footer style= "height: 40%">
                                         <span class="container-footer"><i class="el-icon-caret-top icon-up-color"></i> 12.4% since yesterday</span>
                                     </el-footer>
                                 </el-container>
                             </div>
                             <div class="col-md-2 text-center">
                                 <el-container>
-                                    <el-header>
+                                    <el-header style= "height: 40%">
                                         <span class="container-header">Clicks</span>
                                         <br>
-                                        <span class="container-main">200</span>
+                                        <span class="container-main">{{overviewData.clicks}}</span>
                                     </el-header>
-                                    <el-footer>
+                                    <el-footer style= "height: 40%">
                                         <i class="el-icon-caret-top icon-up-color"></i> <span class="container-footer">12.4% since yesterday</span>
                                     </el-footer>
                                 </el-container>
                             </div>
                             <div class="col-md-2 text-center">
                                 <el-container>
-                                    <el-header>
-                                        <span class="container-header">AOV</span>
+                                    <el-header style= "height: 40%">
+                                        <span class="container-header">Conversion</span>
                                         <br>
-                                        <span class="container-main">$ 290.53</span>
+                                        <span class="container-main">{{overviewData.conversion}}%</span>
                                     </el-header>
-                                    <el-footer>
-                                        <i class="el-icon-caret-bottom icon-down-color"></i> <span class="container-footer">12.4% since yesterday</span>
+                                    <el-footer style= "height: 40%">
+                                        <i class="el-icon-caret-top icon-up-color"></i> <span class="container-footer">12.4% since yesterday</span>
                                     </el-footer>
                                 </el-container>
                             </div>
                             <div class="col-md-2 text-center">
                                 <el-container>
-                                    <el-header>
+                                    <el-header style= "height: 40%">
                                         <span class="container-header">C.O Success</span>
                                         <br>
-                                        <span class="container-main">32</span>
+                                        <span class="container-main">{{overviewData.checkoutSuccess}}</span>
                                     </el-header>
-                                    <el-footer>
+                                    <el-footer style= "height: 40%">
                                         <i class="el-icon-caret-top icon-up-color"></i> <span class="container-footer">12.4% since yesterday</span>
                                     </el-footer>
                                 </el-container>
                             </div>
                             <div class="col-md-2 text-center">
                                 <el-container>
-                                    <el-header>
-                                        <span class="container-header">Rev. Increase</span>
+                                    <el-header style= "height: 40%">
+                                        <span class="container-header">AOV</span>
                                         <br>
-                                        <span class="container-main">$ 290.53</span>
+                                        <span class="container-main">$ {{overviewData.aov}}</span>
                                     </el-header>
-                                    <el-footer>
-                                        <i class="el-icon-caret-top icon-up-color"></i> <span class="container-footer">12.4% since yesterday</span>
+                                    <el-footer style= "height: 40%">
+                                        <i class="el-icon-caret-bottom icon-down-color"></i> <span class="container-footer">12.4% since yesterday</span>
                                     </el-footer>
                                 </el-container>
                             </div>
@@ -363,6 +364,14 @@
                     role: 1
                 },
                 activeName: 'first',
+                overviewData: {
+                    totalRevenue: '--',
+                    impressions: '--',
+                    clicks: '--',
+                    conversion: '--',
+                    checkoutSuccess: '--',
+                    aov: '--'
+                },
                 data : [
                     {name: 'Workout', data: {'2017-01-01': 3, '2017-01-02': 4}},
                     {name: 'Call parents', data: {'2017-01-01': 5, '2017-01-02': 3}}
@@ -394,45 +403,69 @@
                     {id: 1, label: 'admin'}
                 ],
                 sections: [
-                    { label: 'Red section', value: 25, color: 'red' },
-                    { label: 'Green section', value: 25, color: 'green' },
+                    { label: 'Upsell', value: 50, color: '#F2C219' },
+                    { label: 'Cross-sell', value: 50, color: '#2F89FC' },
                 ],
                 activeTab: 'profile',
                 form: new Form(),
                 loading: false,
 
                 series: [{
-                    name: 'Website Blog',
+                    name: 'Revenue',
                     type: 'column',
-                    data: [440, 505, 414, 671, 227, 413, 201, 352, 752, 320, 257, 160]
+                    data: [440, 505, 414, 671, 227, 413, 201, 352, 752]
                 }, {
-                    name: 'Social Media',
+                    name: 'Growth Rate',
                     type: 'line',
-                    data: [23, 42, 35, 27, 43, 22, 17, 31, 22, 22, 12, 16]
+                    data: [23, 42, 35, 27, 43, 22, 17, 31, 22]
                 }],
                 chartOptions: {
+                    chart: {
+                        toolbar: {
+                            show: false
+                        }
+                    },
                     stroke: {
-                        width: [0, 4]
+                        show: true,
+                        lineCap: 'butt',
+                        colors: ['#072856'],
+                        width: [0, 1.5],
+                        dashArray: 0,      
+                    },
+                    plotOptions: {
+                        bar: {
+                            columnWidth: '50%',
+                        }
+                    },
+                    colors: ['#3EACDF', '#072856'],
+                    markers: {
+                        size: 4,
+                        colors: ["#072856"],
+                        strokeColors: "#072856",
+                        strokeWidth: 0,
+                        hover: {
+                            size: 7,
+                        }
                     },
                     // title: {
                     //     text: 'Traffic Sources'
                     // },
                     // labels: ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"],
                     labels: ['01 Jan 2001', '02 Jan 2001', '03 Jan 2001', '04 Jan 2001', '05 Jan 2001', '06 Jan 2001',
-                        '07 Jan 2001', '08 Jan 2001', '09 Jan 2001', '10 Jan 2001', '11 Jan 2001', '12 Jan 2001'
+                        '07 Jan 2001', '08 Jan 2001', '09 Jan 2001'
                     ],
                     xaxis: {
                         type: 'datetime'
                     },
                     yaxis: [{
                         title: {
-                            text: 'Website Blog',
+                            text: '',
                         },
 
                     }, {
                         opposite: true,
                         title: {
-                            text: 'Social Media'
+                            text: ''
                         }
                     }]
                 }
@@ -440,46 +473,58 @@
         },
         methods: {
             getData() {
-                axios.get(route('api.account.profile'))
+                axios.get(route('api.conversion.getUserConversions', {}))
                     .then(res=>{
-                        this.user = res.data.data;
+                        this.user = res.data;
+                        var conversions = res.data;
+                        var conversionsClick = conversions.filter(function(item){
+                            return item.type == 1;
+                        });
+                        var conversionsCheckout = conversions.filter(function(item){
+                            return item.type == 2;
+                        });
+                        // (Math.round(res.data.length * 100) / 100).toFixed(2) => round to 2 decimal places
+                        this.overviewData.impressions = conversions.length;
+                        this.overviewData.clicks = conversionsClick.length;
+                        this.overviewData.checkoutSuccess = conversionsCheckout.length;
+                        this.overviewData.conversion = (conversionsCheckout.length / conversions.length) * 100;
                     })
             },
             onSubmit() {
-                let api = '';
-                if (this.activeTab==='profile') {
-                    this.form = new Form(this.user);
-                    api = 'api.update.profile'
-                } else {
-                    this.form = new Form(this.pwd);
-                    api = 'api.profile.changePassword'
-                }
-                this.loading = true;
+                // let api = '';
+                // if (this.activeTab==='profile') {
+                //     this.form = new Form(this.user);
+                //     api = 'api.update.profile'
+                // } else {
+                //     this.form = new Form(this.pwd);
+                //     api = 'api.profile.changePassword'
+                // }
+                // this.loading = true;
 
-                this.form.post(route(api))
-                    .then(res=> {
-                        this.loading = false;
-                        if (res.success) {
-                            if (this.activeTab==='pwd') this.pwd={};
-                            this.$message({
-                                message: res.msg,
-                                type: 'success'
-                            });
-                        } else {
-                            this.$notify.error({
-                                title: 'Error',
-                                message: res.msg
-                            });
-                        }
-                    })
-                    .catch(error=> {
-                        this.loading = false;
-                        console.log(error);
-                        this.$notify.error({
-                            title: 'Error',
-                            message: 'đã có lỗi xảy ra, vui lòng thử lai.'
-                        });
-                    })
+                // this.form.post(route(api))
+                //     .then(res=> {
+                //         this.loading = false;
+                //         if (res.success) {
+                //             if (this.activeTab==='pwd') this.pwd={};
+                //             this.$message({
+                //                 message: res.msg,
+                //                 type: 'success'
+                //             });
+                //         } else {
+                //             this.$notify.error({
+                //                 title: 'Error',
+                //                 message: res.msg
+                //             });
+                //         }
+                //     })
+                //     .catch(error=> {
+                //         this.loading = false;
+                //         console.log(error);
+                //         this.$notify.error({
+                //             title: 'Error',
+                //             message: 'đã có lỗi xảy ra, vui lòng thử lai.'
+                //         });
+                //     })
             },
             keydown(event){
                 this.form.errors.clear(event.target.name);
@@ -492,7 +537,7 @@
             }
         },
         mounted() {
-
+            this.getData();
         }
     }
 </script>
