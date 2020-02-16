@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Conversion;
 use Illuminate\Http\Request;
 use App\Repositories\ConversionRepository;
 use App\Repositories\OfferRepository;
@@ -15,12 +16,6 @@ class ConversionController extends AdminController
 {
 	private $conversionRepository;
   private $offerRepository;
-  
-  private $actionType = [
-    0 => 'none',
-    1 => 'openOfferPopup',
-    2 => 'popupAddToCart'
-  ];
 
 	public function __construct(ConversionRepository $conversionRepository, OfferRepository $offerRepository)
 	{
@@ -35,17 +30,12 @@ class ConversionController extends AdminController
       'type' => 'required'
     ]);
 
-    $type = array_search($validatedData['type'], $this->actionType);
-    if ($type) {
-      try {
-        $validatedData['type'] = $type;
-        DB::table('conversions')->insert($validatedData);
-        return $this->response(true, '', []);
-      } catch (Exception $e) {
-        return $this->response(false, $e->getMessage(), []);
-      }
+    try {
+      DB::table('conversions')->insert(Conversion::createRecord($validatedData));
+      return $this->response(true, '', []);
+    } catch (Exception $e) {
+      return $this->response(false, $e->getMessage(), []);
     }
-    return $this->response(false, 'action not found', []);
   }
 
 	public function getUserConversions(Request $request)

@@ -34,7 +34,7 @@ $("#ult-upsell-add-to-cart").on("click", function() {
     $(this).css('opacity', 0.65);
     var offer_product_id = $("#offer-product-id").data("offer_product_id");
     $('.ult-upsell-modal-body').prepend('<div style="text-align: center"><div class="lds-ripple"><div></div><div></div></div></div>')
-    storeConversion(offer_id, "popupAddToCart");
+    storeConversion(offer_id, "POPUP_ADD_TO_CART");
     addToCart(1, cart_id, offer_product_id);
 })
 </script>
