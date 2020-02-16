@@ -45,7 +45,7 @@ class StorefrontController extends AdminController
                     //     header('Access-Control-Allow-Headers: x-requested-with');
                     //     exit(0);
                     // }
-                    return $html;
+                    return ['responseText' => $html, 'offer_id' => $offer->id];
                 }
             }
         }

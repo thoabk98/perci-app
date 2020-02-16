@@ -35,11 +35,19 @@ class OfferLib
     }
 
     public function getProductList($params = []) {
-        $this->configure();
+        $client = new GuzzleHttp();
+
         $params["page"] = (empty($params["page"])) ? 1 : $params["page"];
         $params["limit"] = (empty($params["limit"])) ? 10 : $params["limit"];
-        $products = Bigcommerce::getProducts($params);
-        return $products;
+
+        $response = $client->request(
+          'GET', 'https://api.bigcommerce.com/stores/' . $this->store_hash . '/v3/catalog/products',
+          [
+              'headers' => $this->headers,
+              'query' => $params
+          ]
+        );
+        return json_decode($response->getBody()->getContents(), true)['data'];
     }
 
     public function getThemeRegions() {

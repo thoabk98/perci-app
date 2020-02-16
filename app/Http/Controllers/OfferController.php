@@ -227,7 +227,7 @@ class OfferController extends Controller
 			"widget_uuid" => $widget_uuid,
 			"template_file" => "pages/product",
 			"status" => "active",
-			"region" => end($regions)['name']
+      "region" => "offer-popup-modal"
 		];
 		$placement_config = json_encode($placement);
 		$placement = $offer_lib->createPlacement($placement_config);

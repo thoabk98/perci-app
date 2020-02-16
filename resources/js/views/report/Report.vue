@@ -40,6 +40,7 @@
     }
     .el-header{
         padding: 0 10px;
+        height: auto !important;
     }
     .el-footer{
         padding: 0 10px;
@@ -218,72 +219,72 @@
                         <div class="box-body">
                             <div class="col-md-2 text-center">
                                 <el-container>
-                                    <el-header style= "height: 40%">
+                                    <el-header>
                                         <span class="container-header">Total Revenue</span>
                                         <br>
                                         <span class="container-main">$ {{overviewData.totalRevenue}}</span>
                                     </el-header>
-                                    <el-footer style= "height: 40%">
+                                    <el-footer>
                                         <i class="el-icon-caret-top icon-up-color"></i> <span class="container-footer">12.4% since yesterday</span>
                                     </el-footer>
                                 </el-container>
                             </div>
                             <div class="col-md-2 text-center">
                                 <el-container>
-                                    <el-header style= "height: 40%">
+                                    <el-header>
                                         <span class="container-header">Impressions</span>
                                         <br>
                                         <span class="container-main">{{overviewData.impressions}}</span>
                                     </el-header>
-                                    <el-footer style= "height: 40%">
+                                    <el-footer>
                                         <span class="container-footer"><i class="el-icon-caret-top icon-up-color"></i> 12.4% since yesterday</span>
                                     </el-footer>
                                 </el-container>
                             </div>
                             <div class="col-md-2 text-center">
                                 <el-container>
-                                    <el-header style= "height: 40%">
+                                    <el-header>
                                         <span class="container-header">Clicks</span>
                                         <br>
                                         <span class="container-main">{{overviewData.clicks}}</span>
                                     </el-header>
-                                    <el-footer style= "height: 40%">
+                                    <el-footer>
                                         <i class="el-icon-caret-top icon-up-color"></i> <span class="container-footer">12.4% since yesterday</span>
                                     </el-footer>
                                 </el-container>
                             </div>
                             <div class="col-md-2 text-center">
                                 <el-container>
-                                    <el-header style= "height: 40%">
+                                    <el-header>
                                         <span class="container-header">Conversion</span>
                                         <br>
                                         <span class="container-main">{{overviewData.conversion}}%</span>
                                     </el-header>
-                                    <el-footer style= "height: 40%">
+                                    <el-footer>
                                         <i class="el-icon-caret-top icon-up-color"></i> <span class="container-footer">12.4% since yesterday</span>
                                     </el-footer>
                                 </el-container>
                             </div>
                             <div class="col-md-2 text-center">
                                 <el-container>
-                                    <el-header style= "height: 40%">
+                                    <el-header>
                                         <span class="container-header">C.O Success</span>
                                         <br>
                                         <span class="container-main">{{overviewData.checkoutSuccess}}</span>
                                     </el-header>
-                                    <el-footer style= "height: 40%">
+                                    <el-footer>
                                         <i class="el-icon-caret-top icon-up-color"></i> <span class="container-footer">12.4% since yesterday</span>
                                     </el-footer>
                                 </el-container>
                             </div>
                             <div class="col-md-2 text-center">
                                 <el-container>
-                                    <el-header style= "height: 40%">
+                                    <el-header>
                                         <span class="container-header">AOV</span>
                                         <br>
                                         <span class="container-main">$ {{overviewData.aov}}</span>
                                     </el-header>
-                                    <el-footer style= "height: 40%">
+                                    <el-footer>
                                         <i class="el-icon-caret-bottom icon-down-color"></i> <span class="container-footer">12.4% since yesterday</span>
                                     </el-footer>
                                 </el-container>
