@@ -6,6 +6,7 @@ use Illuminate\Routing\Router;
 /**@var Router $router * */
 
 $router->get('popup-content', 'StorefrontController@popupContent');
+$router->post('conversion', 'ConversionController@store');
 
 $router->group(['middleware' => ['web', 'auth']], function (Router $router) {
     $router->group(['prefix' => 'offer'], function (Router $router) {
