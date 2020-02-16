@@ -31,7 +31,7 @@ $(function() {
     };
 
     $.ajax({
-        url: "https://peasisoft.com/api/popup-content",
+        url: apiUri + "/popup-content",
         headers: { "Access-Control-Allow-Headers": "*" },
         type: "GET",
         crossDomain: true,
@@ -60,7 +60,7 @@ $("#form-action-addToCart").on('click', function(e) {
     if (hasOffer) {
         e.preventDefault();
         $('#ult-upsell-popup-modal').modal('show');
-        storeConversion(offer_id, "openOfferPopup");
+        storeConversion(offer_id, "OPEN_OFFER_POPUP");
     }
 });
 
@@ -71,7 +71,7 @@ function storeConversion(offer_id, type) {
       }
 
       $.ajax({
-          url: "https://peasisoft.com/api/conversion",
+          url: apiUri + "/conversion",
           headers: { "Access-Control-Allow-Headers": "*" },
           type: "POST",
           crossDomain: true,
