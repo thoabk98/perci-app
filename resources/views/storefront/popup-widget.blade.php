@@ -20,6 +20,7 @@
 <script>
 var product_id = $("input[name='product_id']").val()
 var store_hash = $("#get-store-hash").data("store_hash");
+var offer_id = null;
 var cart_id = '';
 var hasOffer = false;
 
@@ -38,13 +39,15 @@ $(function() {
         dataType: "json",
         success: function (res) {
             $('.ult-upsell-modal-body').html(res.responseText);
-        },
-        error: function (res) {
-            $('.ult-upsell-modal-body').html(res.responseText);
             if (res.responseText) {
                 hasOffer = true;
             }
             console.log("Load offer popup completed");
+            offer_id = res.offer_id
+        },
+        error: function (res) {
+            $('.ult-upsell-modal-body').html(res.responseText);  
+            console.log("Error occured");
         },
     });
 
@@ -57,8 +60,31 @@ $("#form-action-addToCart").on('click', function(e) {
     if (hasOffer) {
         e.preventDefault();
         $('#ult-upsell-popup-modal').modal('show');
+        storeConversion(offer_id, "openOfferPopup");
     }
 });
+
+function storeConversion(offer_id, type) {
+      const data = {
+        offer_id: offer_id,
+        type: type
+      }
+
+      $.ajax({
+          url: "https://peasisoft.com/api/conversion",
+          headers: { "Access-Control-Allow-Headers": "*" },
+          type: "POST",
+          crossDomain: true,
+          data: data,
+          dataType: "json",
+          success: function(res) {
+              console.log(res);
+          },
+          error: function (res) {
+              console.log(res);
+          }
+      });
+}
 
 function addToCart(quantity, cartId, productId, variantId = 0) {
     var data = JSON.stringify({

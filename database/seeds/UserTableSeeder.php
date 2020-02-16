@@ -16,10 +16,10 @@ class UserTableSeeder extends Seeder
             'email'     =>  'admin@admin.com',
             'name'  =>  'admin',
             'password'  =>  bcrypt('123456'),
-            'client_id' =>  "d1fs9hkwj5qg1ko009sc78gp3fpfl",
-            'client_secret' => "b93d950cdc35ed0809e8bbdcf9db7a692a720b3c9942199a74792949d941f080NAME",
-            'auth_token' => "p5oj5sf04im8os9s6l4xvg2jdd4f6lr",
-            'store_hash' => "459zlh8ulo",
+            'client_id' =>  "8io93oaeqanc9csa5d282m9eotsqq97",
+            'client_secret' => "2547f45b8b7011d030e251a8d463d18cf0c9de35afd79d891eb14520f425a2fa",
+            'auth_token' => "t7atzzl0i6bkq5r7ztorhkxge0vqcc2",
+            'store_hash' => "b9u5amxjcu",
             'phone'     =>  '0945275567',
             'admin'     =>  '1'
         ]);
