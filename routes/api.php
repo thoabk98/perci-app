@@ -19,6 +19,12 @@ $router->group(['middleware' => ['web', 'auth']], function (Router $router) {
             'uses' => 'ProductController@get'
         ]);
     });
+    $router->group(['prefix' => 'conversion'], function (Router $router) {
+        $router->get('/get', [
+            'as'    => 'api.conversion.getUserConversions',
+            'uses'  => 'ConversionController@getUserConversions'
+        ]);
+    });
 
 //    $router->group(['prefix' => 'teacher'], function (Router $router) {
 //

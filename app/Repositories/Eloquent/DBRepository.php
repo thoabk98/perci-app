@@ -73,6 +73,13 @@ class DBRepository {
         return !$isPaginate ? $query->get() : $query->paginate($per);
     }
 
+    public function findAllWhereIn($key, $values, $columns='*', $isPaginate = false, $per = 10)
+    {
+        $query = $this->model->whereIn($key, $values)->select($columns)->orderBy('id', 'desc');
+
+        return !$isPaginate ? $query->get() : $query->paginate($per);
+    }
+
     public function destroyByConditions($conditions)
     {
         $query = $this->model;
