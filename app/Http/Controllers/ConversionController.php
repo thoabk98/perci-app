@@ -14,42 +14,44 @@ use Exception;
 
 class ConversionController extends AdminController
 {
-	private $conversionRepository;
-  private $offerRepository;
+    private $conversionRepository;
+    private $offerRepository;
+    private $conversion;
 
-	public function __construct(ConversionRepository $conversionRepository, OfferRepository $offerRepository)
-	{
-		$this->conversionRepository = $conversionRepository;
-		$this->offerRepository = $offerRepository;
-  }
-
-  public function store(Request $request)
-  {
-    $validatedData = $request->validate([
-      'offer_id' => 'required',
-      'type' => 'required'
-    ]);
-
-    try {
-      DB::table('conversions')->insert(Conversion::createRecord($validatedData));
-      return $this->response(true, '', []);
-    } catch (Exception $e) {
-      return $this->response(false, $e->getMessage(), []);
+    public function __construct(ConversionRepository $conversionRepository, OfferRepository $offerRepository, Conversion $conversion)
+    {
+        $this->conversionRepository = $conversionRepository;
+        $this->offerRepository = $offerRepository;
+        $this->conversion = $conversion;
     }
-  }
 
-	public function getUserConversions(Request $request)
-	{
-    $userId = Auth::id();
-		$offers = $this->offerRepository->findAllBy("user_id", $userId)->toArray();
+    public function store(Request $request)
+    {
+        $validatedData = $request->validate([
+            'offer_id' => 'required',
+            'type' => 'required'
+        ]);
 
-    $offerIds = collect($offers)->pluck("id");
-    
-		$conversions = $this->conversionRepository->findAllWhereIn("offer_id", $offerIds)->toArray();
-		for($i = 0; $i < count($conversions); ++$i) {
-			$conversions[$i]['time'] = Helper::parseDate($conversions[$i]['time']);
-		}
+        try {
+            $this->conversion->insert(Conversion::createRecord($validatedData));
+            return $this->response(true, '', []);
+        } catch (Exception $e) {
+            return $this->response(false, $e->getMessage(), []);
+        }
+    }
 
-		return $conversions;
-	}
+    public function getUserConversions(Request $request)
+    {
+        $userId = Auth::id();
+
+        $conversions = $this->conversion->whereIn("offer_id", function ($query) use ($userId){
+            $query->select("id")->from("offers")->where("user_id", $userId);
+        })->get();
+
+        foreach ($conversions as $key => $value){
+            $conversions[$key]->time = Helper::parseDate($value->time);
+        }
+
+        return $conversions;
+    }
 }
