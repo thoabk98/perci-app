@@ -1,8 +1,8 @@
 {
     "name": "App",
     "version": "0.0.1",
-    "description": "he thong quan ly dao tao lai xe Ngoc Ha",
-    "author": "Vu Dinh Hao <haovd.dev@gmail.com>",
+    "description": "PEASE SELLER SUPPORT",
+    "author": "Peasi Team",
     "license": "MIT",
     "private": true,
     "scripts": {
@@ -60,6 +60,7 @@
         "vue-simplemde": "^0.5.2",
         "vue-template-compiler": "^2.5.13",
         "vue-typeahead": "^2.3.2",
-        "vuejs-datepicker": "^1.5.4"
+        "vuejs-datepicker": "^1.5.4",
+        "vuex": "^3.1.2"
     }
 }
