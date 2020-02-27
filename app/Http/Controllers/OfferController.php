@@ -79,12 +79,10 @@ class OfferController extends Controller
 		// 	'store_hash' => '459zlh8ulo'
 		// );
 
-		if(!Auth::check())
-			return response()->json([], 401);
 		$userId = Auth::id();
 
+		$merchantInfo = $this->userRepository->findById($userId, ['client_id', 'auth_token', 'store_hash']);
 
-		$merchantInfo = $this->userRepository->user($userId, ['client_id', 'auth_token', 'store_hash']);
 		$userOffers = $this->offerRepository->getAllUserOffer($userId, ['base_product_id']);
 		$offers = array();
 		foreach($userOffers as $userOffer) {
@@ -93,11 +91,12 @@ class OfferController extends Controller
 		$params = array(
 			"id:in" => implode(',', $offers),
 		);
-		$products = OfferLib::getProductList($merchantInfo->toArray()[0], $params);
+		$offer = new OfferLib($merchantInfo);
+		$products = $offer->getProductList($params);
 		$offers = array();
-		foreach ($products->data as $product) {
+		foreach ($products as $product) {
 			$item = [
-				'name' => $product->name,
+				'name' => $product["name"],
                 'address' => 'No. 189, Grove St, Los Angeles',
                 'group_name' => 'Group Name',
                 'date' => '2016-05-02',
