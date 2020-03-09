@@ -25,6 +25,28 @@ $router->group(['middleware' => ['web', 'auth']], function (Router $router) {
             'uses'  => 'ConversionController@getUserConversions'
         ]);
     });
+    $router->group(['prefix' => 'pricing'], function (Router $router) {
+        $router->get('/getPlans', [
+            'as'    => 'api.pricing.getAllPlans',
+            'uses'  => 'PricingController@getAllPlans'
+        ]);
+        $router->get('/getClientToken', [
+            'as'    => 'api.pricing.getClientToken',
+            'uses'  => 'PricingController@clientToken'
+        ]);
+        $router->get('/getUserBraintreeId', [
+            'as'    => 'api.pricing.getUserBraintreeId',
+            'uses'  => 'PricingController@getUserBraintreeId'
+        ]);
+        $router->get('/createPaymentMethod/{customerId}/{nonce}', [
+            'as'    => 'api.pricing.createPaymentMethod',
+            'uses'  => 'PricingController@createPaymentMethod'
+        ]);
+        $router->get('/subscribeToPlan/{token}/{planId}', [
+            'as'    => 'api.pricing.subscribeToPlan',
+            'uses'  => 'PricingController@subscribeToPlan'
+        ]);
+    });
 
 //    $router->group(['prefix' => 'teacher'], function (Router $router) {
 //

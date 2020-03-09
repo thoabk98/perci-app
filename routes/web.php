@@ -37,6 +37,7 @@ $router->group(['prefix' => 'ult-upsell', 'middleware' => ['web', 'auth']], func
 
     });
     $router->get('report', 'AdminController@index');
+    $router->get('pricing', 'AdminController@index');
     $router->get('help-center', 'AdminController@index');
     $router->post('help-center','HelpController@store');
     $router->get('feature-request', 'AdminController@index');
