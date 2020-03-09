@@ -87,6 +87,10 @@ class PricingController extends AdminController
             'planId' => $planId,
         ]);
 
-        return $this->response(true, '', $result);
+        if ($result->success) {
+            return $this->response(true, '', $result);
+        } else {
+            return $this->response(false, 'Braintree: Subscription failed', '');
+        }
     }
 }
