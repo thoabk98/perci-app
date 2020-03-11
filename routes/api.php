@@ -12,7 +12,10 @@ $router->group(['middleware' => ['web', 'auth']], function (Router $router) {
     $router->group(['prefix' => 'offer'], function (Router $router) {
         $router->post('/', 'OfferController@store');
     });
-    $router->get('/offers', 'OfferController@index');
+    $router->group(['prefix' => 'offers'], function (Router $router) {
+      $router->get('/', 'OfferController@index');
+      $router->delete('/{offer_id}', 'OfferController@delete');
+    });
     $router->group(['prefix' => 'product'], function (Router $router) {
         $router->get('/get', [
             'as' => 'api.product.get',
