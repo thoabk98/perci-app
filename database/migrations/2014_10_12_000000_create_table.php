@@ -24,6 +24,7 @@ class CreateTable extends Migration
             $table->string("client_secret");
             $table->string("auth_token");
             $table->string("store_hash");
+            $table->string('braintree_id')->nullable();
             $table->timestamp('email_verified_at')->nullable();
             $table->rememberToken();
             $table->timestamps();

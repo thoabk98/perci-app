@@ -55,6 +55,11 @@ class DBRepository {
         return $obj->update($data);
     }
 
+    public function updateColumn($id, $columns, $data)
+    {
+        return $this->model->where(['id' => $id])->update([$columns => $data]);
+    }
+
     public function destroy($id)
     {
         $obj = $this->model->findOrFail($id);
