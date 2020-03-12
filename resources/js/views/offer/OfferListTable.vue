@@ -49,6 +49,10 @@
 							<strong>Edit</strong>
 						</el-link>
 						<br>
+            <el-link @click="showDuplicateConfirm(scope.$index, scope.row)">
+							<strong>Duplicate</strong>
+						</el-link>
+            <br>
 						<el-link @click="showDeleteConfirm(scope.$index, scope.row)">
 							<strong>Delete</strong>
 						</el-link>
@@ -95,7 +99,7 @@
 			fetchData(page='1') {
 				this.isLoading = true;
 				axios.get('/api/offers' + '?page=' + page).then((response) => {
-          this.offers = this.formatOfferData(response.data.data);
+          this.offers = response.data.data.data;
 					this.total = response.data.pageInfo.total;
           this.isLoading = false;
 				});
@@ -115,16 +119,31 @@
           });          
         });
       },
+      showDuplicateConfirm(index, val) {
+        this.$refs[`popover${index}`].doClose();
+        this.$confirm(`Are you sure to duplicate this ${val.name} offer. Continue?`, 'Warning', {
+          confirmButtonText: 'Ok',
+          cancelButtonText: 'Cancel',
+          type: 'warning'
+        }).then(() => {
+          this.handleDuplicate(val);
+        }).catch(() => {
+          this.$notify.info({
+            title: 'Info',
+            message: 'Duplicate canceled'
+          });          
+        });
+      },
       handleDelete(index, val) {
         this.isLoading = true;
         this.showDialog = false;
-        axios.delete(`/api/offers/${val.offer_id}`).then((response) => {
+        axios.delete(`/api/offers/${val.id}`).then((response) => {
           this.offers.splice(index, 1);
           this.$notify.success({
             title: 'Success',
             message: response.data.message
           });
-          this.updateTable();
+          this.updateTable('delete');
           this.isLoading = false;
         }).catch(error => {
           this.$notify.error({
@@ -134,24 +153,25 @@
           this.isLoading = false;
         });
       },
-      formatOfferData(fetchedOffers) {
-        let offerIds = Object.keys(fetchedOffers);
-				let offers = Object.values(fetchedOffers);
-        let index = 0;
-        offers.forEach(function(offer) {
-          offer['offer_id'] = offerIds[index];
-          offer['visible'] = false;
-          index++;
-        });
-
-        return offers;
+      handleDuplicate(val) {
+        this.isLoading = true;
+        this.showDialog = false;
+        val.name = val.name += ' (B/A Testing)';
+        this.$router.push( { name: 'offer.new', params: { baseOffer: val } });
       },
-      updateTable() {
-        this.total -= 1;
-        let maxPage = Math.ceil(this.total / this.per_page);
-        if(this.current_page > maxPage) {
-          this.current_page -= 1;
-          this.handleCurrentChange(this.current_page);
+      updateTable(action) {
+        if(action === 'delete') {
+          this.total -= 1;
+          let maxPage = Math.ceil(this.total / this.per_page);
+          if(this.current_page > maxPage) {
+            this.current_page -= 1;
+            this.handleCurrentChange(this.current_page);
+          }
+        } else if (action === 'duplicate') {
+          this.total += 1;
+          let maxPage = Math.ceil(this.total / this.per_page);
+          console.log('here page', maxPage);
+          this.handleCurrentChange(maxPage);
         }
       }
 		},
