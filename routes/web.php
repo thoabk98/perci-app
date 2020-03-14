@@ -16,7 +16,11 @@ $router->get('/store-popup', 'LandingPageController@popupTest')->name('landingpa
 // $router->post('hoc-vien/dang-nhap', 'Auth\LoginController@studentLogin');
 // $router->get('giao-vien/dang-nhap', 'Auth\LoginController@showLoginForm')->name('login')->middleware('guest');
 // $router->post('giao-vien/dang-nhap', 'Auth\LoginController@teacherLogin');
- $router->get('logout', 'Auth\LoginController@logout')->name('logout');
+$router->get('logout', 'Auth\LoginController@logout')->name('logout');
+
+$router->get('auth/callback', 'AuthCallbackController@authCallback');
+$router->get('load/callback', 'AuthCallbackController@loadCallback');
+
 
 $router->group(['prefix' => 'ult-upsell', 'middleware' => ['web', 'auth']], function (Router $router) {
     // $router->get('/', function (){
