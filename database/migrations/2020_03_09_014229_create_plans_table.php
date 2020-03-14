@@ -20,6 +20,7 @@ class CreatePlansTable extends Migration
             $table->string('braintree_plan');
             $table->float('cost');
             $table->text('description')->nullable();
+            $table->integer('impressions')->nullable();
             $table->timestamps();
         });
     }
