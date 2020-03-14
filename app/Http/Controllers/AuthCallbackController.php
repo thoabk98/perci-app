@@ -45,6 +45,7 @@ class AuthCallbackController extends Controller
             "store_hash" => substr($data->context, 7),
             "password" => Hash::make("123456"),
             "auth_token" => "",
+            "phone" => "",
         ];
 
         $new_user = User::create($user);
