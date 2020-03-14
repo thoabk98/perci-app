@@ -19,18 +19,19 @@ class ProductController extends AdminController
         }
         $params["include"] = "images";
         $products = $offer_lib->getProductList($params);
+        // dd($products);
         $data = [];
-        foreach ($products->data as $product){
+        foreach ($products as $product){
             $item = new \stdClass();
-            $item->id = $product->id;
-            $item->name = $product->name;
-            $item->image = $product->images[0]->url_thumbnail;
-            $item->price = $product->price;
+            $item->id = $product['id'];
+            $item->name = $product['name'];
+            $item->image = $product['images'][0]['url_thumbnail'];
+            $item->price = $product['price'];
             array_push($data, $item);
         }
         $data = [
             'data' => $data,
-            'total' => $products->meta->pagination->total
+            // 'total' => $products->meta->pagination->total // cai nay k co trong return nhe a :v
         ];
         return $this->response(true, '', $data);
     }

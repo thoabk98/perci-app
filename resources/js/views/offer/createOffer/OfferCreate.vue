@@ -270,6 +270,7 @@ export default {
             this.product_list_choose.forEach(function(element) {
                 offer_product_id.push(element.id);
             });
+            this.offer.name = this.offerName;
             this.offer.offer_product_id = offer_product_id;
             this.offer.content = content;
             this.$emit("nextStep", 2, this.offer);
@@ -287,23 +288,17 @@ export default {
         },
         submitForm() {
             this.form = new Form(this.offer);
-            console.log(this.form);
+            this.loading = true;
             this.form.post('/api/offer/')
-                .then(res => {
-                    if(res.success) {
-                        this.$message({
-                            message: res.msg,
-                            type: 'success'
-                        });
-                    } else {
-                        this.$notify.error({
-                            title: 'Error',
-                            message: res.msg
-                        });
-                        console.log(res);
-                    }
+                .then(response => {
+                  this.$notify.success({
+                    title: 'Success',
+                    message: response.message
+                  });
                 })
-                .catch();
+                .catch(err => {
+                  console.log(err);
+                });
         },
         dialogShow(){
             this.loading = true;
@@ -351,7 +346,12 @@ export default {
             return this.scroll_loading
         }
     },
-
+    beforeMount() {
+      if(!jQuery.isEmptyObject(this.$route.params.baseOffer)) {
+        this.offerName = this.offer.name;
+        this.groupName = this.offer.group_name;
+      }
+    },
     props: [ 'offer' ]
 }
 </script>

@@ -44,7 +44,14 @@ export default {
         next(step, offer) {
             this.step = step;
             this.offer = offer;
-        },
+        }
+    },
+    beforeMount() {
+      let offer = this.$route.params.baseOffer;
+      if(!jQuery.isEmptyObject(this.$route.params.baseOffer)) {
+        this.step = 2;
+        this.offer = offer;
+      }
     }
 }
 </script>

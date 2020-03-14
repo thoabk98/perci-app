@@ -17,6 +17,7 @@ $router->group(['middleware' => ['web', 'auth']], function (Router $router) {
     $router->group(['prefix' => 'offers'], function (Router $router) {
       $router->get('/', 'OfferController@index');
       $router->delete('/{offer_id}', 'OfferController@delete');
+      $router->post('/{offer_id}', 'OfferController@duplicate');
     });
     $router->group(['prefix' => 'product'], function (Router $router) {
         $router->get('/get', [

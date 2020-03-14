@@ -24,6 +24,7 @@ class OfferTableSeeder extends Seeder
             $item = [
                 "user_id" => 1,
                 "base_product_id" => $product['id'],
+                "name" => $product['name'],
                 "type" => 2,
                 "position" => 1,
                 "created_at" => \Carbon\Carbon::now(),

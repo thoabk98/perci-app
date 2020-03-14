@@ -83,32 +83,19 @@ class OfferController extends Controller
 
     $merchantInfo = $this->userRepository->findById($userId, ['client_id', 'auth_token', 'store_hash']);
 
-    $userOffers = $this->offerRepository->getAllUserOffer($userId, ['id', 'base_product_id']);
-    $offers = array();
-    $offerIds = array();
-    foreach ($userOffers as $userOffer) {
-      $offers[$userOffer['id']] = $userOffer['base_product_id'];
-    }
-    $params = array(
-      "id:in" => implode(',', $offers),
-    );
-    $offer = new OfferLib($merchantInfo);
-    $products = $offer->getProductList($params);
+    $userOffers = $this->offerRepository->getAllUserOffer($userId, ['*']);
+
     $returnOffers = array();
-    foreach ($products as $product) {
-      $item = [
-        'name' => $product["name"],
-        'address' => 'No. 189, Grove St, Los Angeles',
-        'group_name' => 'Group Name',
-        'date' => '2016-05-02',
-        'cvs_rate' => '35%',
-        'aov' => '$234.04',
-        'views' => 142,
-      ];
-      array_push($returnOffers, $item);
+    foreach ($userOffers as $offer) {
+      $offer['address'] = 'No. 189, Grove St, Los Angeles';
+      $offer['group_name'] = 'Group Name';
+      $offer['date'] = '2016-05-02';
+      $offer['cvs_rate'] = '35%';
+      $offer['aov'] = '$234.04';
+      $offer['views'] = 142;
     }
 
-    return response()->json(['pageInfo' => $userOffers, 'data' => array_combine(array_keys($offers), $returnOffers)], 200);
+    return response()->json(['pageInfo' => $userOffers, 'data' => $userOffers], 200);
   }
 
   public function store(Request $request)
@@ -120,13 +107,11 @@ class OfferController extends Controller
     // 	'type' => $request->type,
     // 	'custom_template_id' => $request->custom_template_id,
     // ];
-    if (!Auth::check())
-      return response()->json(['message' => 'Unauthorized'], 401);
-
     $data = [];
     foreach ($request->offer_product_id as $key => $id) {
       array_push($data, array(
         'user_id' => Auth::id(),
+        'name' => $request->name,
         'base_product_id' => $id,
         'type' => $request->type,
         'position' => $request->position,
@@ -137,7 +122,7 @@ class OfferController extends Controller
 
     try {
       DB::table("offers")->insert($data);
-      $this->addScriptsToStorefront();
+      $this->addScriptsToStorefront(); // dong nay voi dong duoi e test bi loi 
       $this->addWidgetToStorefront();
       return response()->json(['status' => true, 'message' => 'insert success'], 201);
     } catch (Exception $e) {
@@ -164,7 +149,7 @@ class OfferController extends Controller
   {
     $offer = $this->offerRepository->getUserOffer(Auth::id(), $offer_id);
     if(!$offer) {
-      return $this->response(false, "dữ liệu không tồn tại hoặc đã bị xóa");
+      return response()->json(['status' => false, 'message' => 'Inaccessable data'], 500);
     }
     try {
       $offer->delete();
@@ -172,6 +157,40 @@ class OfferController extends Controller
     } catch (Exception $e) {
       Log::error('remove offer: fail. message: '.$e->getMessage().'. file: '.$e->getFile().'. line: '.$e->getLine());
       return response()->json(['status' => false, 'message' => 'Delete failed '], 500);
+    }
+  }
+
+  public function update(Request $request, $offer_id)
+  {
+    $offer = $this->offerRepository->getUserOffer(Auth::id(), $offer_id);
+    if(!$offer_id) {
+      return response()->json(['status' => false, 'message' => 'Inaccessable data'], 500);
+    }
+    try {
+      $updateParams = $request->only(['base_product_id', 'type', 'position', 'content', 'customer_template_id']);
+      $offer->update($updateParams);
+      return response()->json(['status' => true, 'message' => "Update success"], 200);
+    } catch (Exception $e) {
+      Log::error('update offer: fail. message: '.$e->getMessage().'. file: '.$e->getFile().'. line: '.$e->getLine());
+      return response()->json(['status' => false, 'message' => 'Update failed '], 500);
+    }
+  }
+
+  public function duplicate(Request $request, $offer_id)
+  {
+    $offer = $this->offerRepository->getUserOffer(Auth::id(), $offer_id);
+    if(!$offer_id) {
+      return response()->json(['status' => false, 'message' => 'Inaccessable data'], 500);
+    }
+    try {
+      $offer = $offer->replicate();
+      if(substr($offer->name, -strlen(' (A/B Testing)')) !== ' (A/B Testing)')
+        $offer->name .= ' (A/B Testing)';
+      $offer->save();
+      return response()->json(['status' => true, 'message' => "Duplicate success"], 200);
+    } catch (Exception $e) {
+      Log::error('update offer: fail. message: '.$e->getMessage().'. file: '.$e->getFile().'. line: '.$e->getLine());
+      return response()->json(['status' => false, 'message' => 'Duplicate failed '], 500);
     }
   }
 
