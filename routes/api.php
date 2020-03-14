@@ -7,6 +7,8 @@ use Illuminate\Routing\Router;
 
 $router->get('popup-content', 'StorefrontController@popupContent');
 $router->post('conversion', 'ConversionController@store');
+$router->get('auth/callback', 'AuthCallbackController@authCallback');
+$router->get('load/callback', 'AuthCallbackController@loadCallback');
 
 $router->group(['middleware' => ['web', 'auth']], function (Router $router) {
     $router->group(['prefix' => 'offer'], function (Router $router) {

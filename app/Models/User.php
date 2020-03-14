@@ -12,7 +12,7 @@ class User extends Authenticatable
     use SoftDeletes;
     protected $table = 'users';
 
-    protected $fillable = ['name', 'phone', 'password', 'email', 'role', 'type'];
+    protected $fillable = ['name', 'admin', 'phone', 'password', 'email', 'role', 'type', 'client_id', 'client_secret', 'store_hash', 'auth_token'];
 
     CONST TYPE_USER = 1;
     CONST TYPE_TEACHER = 2;
