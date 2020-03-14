@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\User;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Http\Request;
 use GuzzleHttp\Client as GuzzleHttp;
@@ -15,9 +16,9 @@ class AuthCallbackController extends Controller
             'content-type' => 'application/x-www-form-urlencoded'
         ];
         $params = [
-            "client_id" => "ly8cs99p0pkyghlr4mdesd1r008umd7",
-            "client_secret" => "6e5ff043b5314da08caaaa166295f637701729aa6200013f81292a92903ac7e9",
-            "redirect_uri" => "https://3e519963.ngrok.io/api/auth/callback",
+            "client_id" => env('CLIENT_ID'),
+            "client_secret" => env('CLIENT_SECRET'),
+            "redirect_uri" => env('APP_URL') . "/api/auth/callback",
             "grant_type" => "authorization_code",
             "code" => $request->get("code"),
             "scope" => $request->get("scope"),
@@ -49,5 +50,28 @@ class AuthCallbackController extends Controller
         $new_user = User::create($user);
 
         return "<h1>Installation Success</h1>";
+    }
+
+    public function loadCallback(Request $request) {
+        $signed_payload = $request->signed_payload;
+        list($encodedData, $encodedSignature) = explode('.', $signed_payload, 2);
+
+        // decode the data
+        $signature = base64_decode($encodedSignature);
+        $jsonStr = base64_decode($encodedData);
+        $data = json_decode($jsonStr, true);
+
+        // confirm the signature
+        $expectedSignature = hash_hmac('sha256', $jsonStr, env('CLIENT_SECRET'), $raw = false);
+        if (!hash_equals($expectedSignature, $signature)) {
+            error_log('Bad signed request from BigCommerce!');
+            return '<h2>Unauthorize Request</h2>';
+        }
+
+        $user = User::where('client_id', $data['user']['id'])->first();
+        Auth::loginUsingId($user->id);
+
+        return redirect()->route('dashboard');
+
     }
 }
