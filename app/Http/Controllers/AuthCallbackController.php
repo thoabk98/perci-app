@@ -18,7 +18,7 @@ class AuthCallbackController extends Controller
         $params = [
             "client_id" => env('CLIENT_ID'),
             "client_secret" => env('CLIENT_SECRET'),
-            "redirect_uri" => env('APP_URL') . "/api/auth/callback",
+            "redirect_uri" => env('APP_URL') . "/auth/callback",
             "grant_type" => "authorization_code",
             "code" => $request->get("code"),
             "scope" => $request->get("scope"),
