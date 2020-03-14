@@ -1,7 +1,4 @@
 <style>
-    .container {
-        
-    }
     .headerContainer {
         text-align: center;
         width: 100%;
@@ -132,8 +129,8 @@
         top: 0;
         width: 100%;
         height: 100%;
-        background-color: rgb(0,0,0); /* Fallback color */
-        background-color: rgba(0,0,0,0.4); /* Black w/ opacity */
+        background-color: rgb(0,0,0);
+        background-color: rgba(0,0,0,0.4);
     }
     .paymentFormContent {
         position: relative;
@@ -227,12 +224,9 @@
                 <div class="planDetailContainer">
                     <p class="impressionAText" v-bind:style="{ 'color': plan.colors[1]}">{{ plan.impressions.toLocaleString() }} impressions</p>
                     <p class="impressionBText">per month</p>
-
                     <div v-for="detail in plan.details" :key="detail">
                         <p class="detailText">{{ detail }}</p>
                     </div>
-
-
                 </div>
                 <button class="startButton" v-bind:style="{ 'background-image': 'linear-gradient(225deg, ' + plan.colors[1] + ', ' + plan.colors[0] + ')'}" v-on:click="choosePlan(plan)">Start now</button>
             </div>
@@ -309,7 +303,6 @@
                     })
             },
             choosePlan: function (plan) {
-
                 let id = plan.braintree_plan;
 
                 var payButton = document.getElementById("payButtonId");
@@ -329,8 +322,6 @@
                     }
                 }
 
-
-
                 this.selectedPlanId = id;
                 axios.get(route('api.pricing.getUserBraintreeId', {}))
                     .then(res=>{
@@ -338,7 +329,6 @@
                         axios.get(route('api.pricing.getClientToken', {}))
                             .then(res=>{
                                 let clientToken = res.data;
-
                                 braintree.client.create({
                                     authorization: clientToken,
                                 })
@@ -391,7 +381,6 @@
                     })
                     .catch(err => {
                         console.error(err);
-                        
                     })
                 }
             }
