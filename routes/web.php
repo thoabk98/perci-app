@@ -20,7 +20,7 @@ $router->get('logout', 'Auth\LoginController@logout')->name('logout');
 
 $router->get('auth/callback', 'AuthCallbackController@authCallback');
 $router->get('load/callback', 'AuthCallbackController@loadCallback');
-
+$router->get('uninstall/callback', 'AuthCallbackController@uninstallCallback');
 
 $router->group(['prefix' => 'ult-upsell', 'middleware' => ['web', 'auth']], function (Router $router) {
     // $router->get('/', function (){

@@ -9,7 +9,6 @@ use Illuminate\Support\Facades\Auth;
 
 class User extends Authenticatable
 {
-    use SoftDeletes;
     protected $table = 'users';
 
     protected $fillable = ['name', 'admin', 'phone', 'password', 'email', 'role', 'type', 'client_id', 'client_secret', 'store_hash', 'auth_token'];
