@@ -75,4 +75,31 @@ class AuthCallbackController extends Controller
         return redirect()->route('dashboard');
 
     }
+
+    public function uninstallCallback(Request $request) {
+        try{
+            $signed_payload = $request->signed_payload;
+            list($encodedData, $encodedSignature) = explode('.', $signed_payload, 2);
+
+            // decode the data
+            $signature = base64_decode($encodedSignature);
+            $jsonStr = base64_decode($encodedData);
+            $data = json_decode($jsonStr, true);
+
+            // confirm the signature
+            $expectedSignature = hash_hmac('sha256', $jsonStr, env('CLIENT_SECRET'), $raw = false);
+            if (!hash_equals($expectedSignature, $signature)) {
+                error_log('Bad signed request from BigCommerce!');
+                return '<h2>Unauthorize Request</h2>';
+            }
+
+            $user = User::where('client_id', $data['user']['id'])->firstOrFail();
+            User::destroy($user->id);
+
+            return "<h1>Uninstallation Success</h1>";
+        } catch (Exception $exception){
+            Log::error("[Uninstall App Callback]". $exception->getMessage());
+            return $this->response(false, $exception->getMessage(), []);
+        }
+    }
 }
