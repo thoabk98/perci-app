@@ -3,6 +3,7 @@
 		<div v-if="offerGroups.length > 0">
 			<el-table
 			:data="offerGroups"
+      v-loading="isLoading"
 			style="width: 100%"
 			column-gap="40px">
 				<el-table-column
@@ -33,12 +34,13 @@
 						&nbsp;
 						<el-popover
 						placement="left"
-						trigger="click">
-							<el-link>
+						trigger="click"
+            :ref="'popover'+scope.$index">
+							<el-link @click="handleEdit(scope.row)">
 								<strong>Edit</strong>
 							</el-link>
 							<br>
-							<el-link>
+							<el-link @click="showDeleteConfirm(scope.$index, scope.row)">
 								<strong>Delete</strong>
 							</el-link>
 							<span role="button" slot="reference">︙</span>
@@ -64,28 +66,124 @@
 			</div>
 			<br>
 		</div>
+    <el-pagination
+			class="text-center"
+			layout="prev, pager, next"
+			:total="total"
+			:page-size="per_page"
+			:current-page="current_page"
+			@current-change="handleCurrentChange"
+			>
+		</el-pagination>
 	</div>
 </template>
 
 <script>
     export default {
-		name: 'offer-group-list',
-		props: {
-			offerGroups: {
-				type: Array
-			}
-		},
-		methods: {
-			checkbox(scope) {
-				if (scope.row.isActive == null) {
-					return false
-				}
-				return scope.row.isActive;
-			},
-			changeState(scope) {
-				scope.row.isActive = !scope.row.isActive
-			}
-		}
+      name: 'offer-group-list',
+      data() {
+        return {
+          isLoading: false,
+          offerGroups: [],
+          total: 0,
+          per_page: 4,
+          current_page: 1
+        }
+      },
+      methods: {
+        checkbox(scope) {
+          return scope.row.status == 1;
+        },
+        changeState(scope) {
+          // scope.row.isActive = !scope.row.isActive
+          // TODO update status in database
+          scope.row.status = scope.row.status == 1 ? 0 : 1;
+        },
+        fetchData(page='1') {
+          this.isLoading = true;
+          axios.get('/api/groups' + '?page=' + page).then((response) => {
+            this.offerGroups = response.data.data;
+            this.total = response.data.total;
+            this.isLoading = false;
+          }).catch((err) => {
+            this.$notify.error({
+              title: 'Error',
+              message: error.response.data.message
+            })
+          });
+        },
+        showDeleteConfirm(index, val) {
+          this.$refs[`popover${index}`].doClose();
+          this.$confirm(`This will permanently delete ${val.name} group. Continue?`, 'Warning', {
+            confirmButtonText: 'Delete',
+            cancelButtonText: 'Cancel',
+            type: 'warning'
+          }).then(() => {
+            this.handleDelete(index, val);
+          }).catch(() => {
+            this.$notify.info({
+              title: 'Info',
+              message: 'Delete canceled'
+            });          
+          });
+        },
+        handleDelete(index, val) {
+          this.isLoading = true;
+          this.showDialog = false;
+          axios.delete(`/api/groups/${val.id}`).then((response) => {
+            this.offerGroups.splice(index, 1);
+            this.$notify.success({
+              title: 'Success',
+              message: 'Delete success'
+            });
+            this.updateTable('delete');
+            this.isLoading = false;
+          }).catch((error) => {
+            this.$notify.error({
+              title: 'Error',
+              message: error
+            });
+            this.isLoading = false;
+          });
+        },
+        handleCurrentChange(val) {
+          this.current_page = val;
+          this.fetchData(val);
+        },
+        updateTable(action) {
+          if(action === 'delete') {
+            this.total -= 1;
+            let maxPage = Math.ceil(this.total / this.per_page);
+            if(this.current_page > maxPage) {
+              this.current_page -= 1;
+              this.handleCurrentChange(this.current_page);
+            }
+          } else if (action === 'duplicate') {
+            this.total += 1;
+            let maxPage = Math.ceil(this.total / this.per_page);
+            this.handleCurrentChange(maxPage);
+          }
+        },
+        handleEdit(object) {
+          this.$root.$emit("openUpdateGroup", object);
+        }
+      },
+      mounted() {
+        this.fetchData();
+        this.$parent.$parent.$parent.$on('newGroup', function(groupName) {
+          axios.post('/api/groups', { name: groupName } ).then((response) => {
+            this.$notify.success({
+              title: 'Success',
+              message: response.data.message
+            });
+          }).catch((err) => {
+            this.$notify.error({
+              title: 'Error',
+              message: err.response.data.message
+            })
+          })
+        });
+      }
     }
 </script>
 
