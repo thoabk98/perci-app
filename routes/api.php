@@ -51,6 +51,28 @@ $router->group(['middleware' => ['web', 'auth']], function (Router $router) {
             'uses'  => 'PricingController@subscribeToPlan'
         ]);
     });
+    $router->group(['prefix' => 'groups'], function (Router $router) {
+        $router->get('/', [
+            'as' => 'api.groups.index',
+            'uses' => 'GroupController@index'
+        ]);
+        $router->post('/', [
+            'as' => 'api.groups.store',
+            'uses' => 'GroupController@store'
+        ]);
+        $router->put('/{groupId}', [
+            'as' => 'api.groups.put',
+            'uses' => 'GroupController@update'
+        ]);
+        $router->delete('/{groupId}', [
+            'as' => 'api.groups.delete',
+            'uses' => 'GroupController@destroy'          
+        ]);
+        $router->get('/{groupId}/offers', [
+            'as' => 'api.groups.get.offers',
+            'uses' => 'GroupController@offers'        
+        ]);
+    });
 
 //    $router->group(['prefix' => 'teacher'], function (Router $router) {
 //

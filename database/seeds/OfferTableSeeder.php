@@ -28,10 +28,25 @@ class OfferTableSeeder extends Seeder
                 "type" => 2,
                 "position" => 1,
                 "created_at" => \Carbon\Carbon::now(),
-                "updated_at" => \Carbon\Carbon::now()
+                "updated_at" => \Carbon\Carbon::now(),
+                "group_id" => 1
             ];
             array_push($offers, $item);
         } 
+        $products = (new OfferLib($users))->getProductList(['page' => 2]);
+        foreach ($products as $product){
+            $item = [
+                "user_id" => 1,
+                "base_product_id" => $product['id'],
+                "name" => $product['name'],
+                "type" => 2,
+                "position" => 1,
+                "created_at" => \Carbon\Carbon::now(),
+                "updated_at" => \Carbon\Carbon::now(),
+                "group_id" => 2
+            ];
+            array_push($offers, $item);
+        }
         DB::table("offers")->insert($offers);
     }
 }

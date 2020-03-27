@@ -117,4 +117,9 @@ class DBRepository {
         $this->update($data, $id);
         return $id;
     }
+
+    public function updateWhereIn($key, array $values, $updateData)
+    {
+      return $this->model->whereIn($key, $values)->update($updateData);
+    }
 }
