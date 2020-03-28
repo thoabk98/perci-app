@@ -1,6 +1,6 @@
-import CourseList from './CourseList';
-import CourseForm from './CourseForm';
-import CourseEdit from './CourseEdit';
+const CourseList = () => import('@/views/course/CourseList');
+const CourseForm = () => import('@/views/course/CourseForm');
+const CourseEdit = () => import('@/views/course/CourseEdit');
 
 export default [
     {path: '/admin/course/courses', component: CourseList, name: 'course.index'},
