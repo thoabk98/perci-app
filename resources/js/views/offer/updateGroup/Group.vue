@@ -13,16 +13,13 @@
 </template>
 
 <script>
-import GroupInfo from "./GroupInfo.vue";
-import GroupOffers from "./GroupOffers";
-
 export default {
   data() {
     return {};
   },
   components: {
-    GroupInfo,
-    GroupOffers
+    GroupInfo: () => import("@/views/offer/updateGroup/GroupInfo"),
+    GroupOffers: () => import("@/views/offer/updateGroup/GroupOffers")
   },
   props: {
     groupInfo: {

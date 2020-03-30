@@ -1,9 +1,9 @@
-import OfferList from './OfferList';
-import OfferSetting from './createOffer/OfferSetting';
-import OfferCreate from './createOffer/OfferCreate';
-import OfferForm from './createOffer/OfferForm';
-import TriggerLocation from './createOffer/TriggerLocation';
-import OfferNew from './createOffer/OfferNew';
+const OfferList = () => import('@/views/offer/OfferList');
+const OfferSetting = () => import('@/views/offer/createOffer/OfferSetting');
+const OfferCreate = () => import('@/views/offer/createOffer/OfferCreate');
+const OfferForm = () => import('@/views/offer/createOffer/OfferForm');
+const TriggerLocation = () => import('@/views/offer/createOffer/TriggerLocation');
+const OfferNew = () => import('@/views/offer/createOffer/OfferNew');
 
 export default [
     {path: '/ult-upsell/offer', component: OfferList, name: 'offer.index'},

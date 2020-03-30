@@ -4,13 +4,10 @@ import Vue from 'vue';
 import VueRouter from 'vue-router';
 import locale from 'element-ui/lib/locale/lang/vi';
 import ElementUI from 'element-ui';
-import axios from 'axios';
 import * as filters from './filters'; // global filters
 import Select2 from 'v-select2-component';
 import money from 'v-money';
-import moment from "moment";
 import Multiselect from 'vue-multiselect';
-import PieChart from 'vue-pie-chart/src/PieChart.vue';
 import Chartkick from 'vue-chartkick'
 import Chart from 'chart.js';
 import Donut from 'vue-css-donut-chart';

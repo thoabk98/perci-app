@@ -70,10 +70,6 @@
 </template>
 
 <script>
-    import OfferGroupList from "./OfferGroupList.vue";
-    import OfferListTable from "./OfferListTable.vue";
-    import Group from "./updateGroup/Group.vue";
-
     export default {
         data() {
             return {
@@ -88,9 +84,9 @@
             };
         },
         components: {
-            OfferGroupList,
-            OfferListTable,
-            Group
+            OfferGroupList: () => import("@/views/offer/OfferGroupList"),
+            OfferListTable: () => import("@/views/offer/OfferListTable"),
+            Group: () => import("@/views/offer/updateGroup/Group")
         },
         methods: {
             handleEdit(index, row) {
