@@ -98,7 +98,8 @@ class AuthCallbackController extends Controller
 
             $user = User::where('client_id', $data['user']['id'])->firstOrFail();
             User::destroy($user->id);
-
+            $this->deleteWidgets($user);
+            $this->deleteScripts($user);
             return "<h1>Uninstallation Success</h1>";
         } catch (Exception $exception){
             Log::error("[Uninstall App Callback]". $exception->getMessage());
@@ -106,7 +107,7 @@ class AuthCallbackController extends Controller
         }
     }
 
-    private function addWidget($user) {
+    public function addWidget($user) {
         $offer_lib = new OfferLib($user);
 
         #get regions
@@ -142,7 +143,7 @@ class AuthCallbackController extends Controller
         $placement_config = json_encode($placement);
         $placement = $offer_lib->createPlacement($placement_config);
 
-        return ['status' => true, 'message' => 'create success'];
+        return ['status' => true, 'message' => 'create widget success'];
     }
 
     public function addScripts($user) {
@@ -163,6 +164,31 @@ class AuthCallbackController extends Controller
         $script = $offer_lib->createScript($script_config);
         $script_uuid = $script['uuid'];
 
-        return ['status' => true, 'message' => 'create success'];
+        return ['status' => true, 'message' => 'create scripts success'];
+    }
+
+    public function deleteWidgets($user) {
+        $offer_lib = new OfferLib($user);
+        $widgetTemplates = $offer_lib->getAllWidgetTemplate();
+        $new = [];
+        foreach ($widgetTemplates as $widgetTemplate) {
+            if ($widgetTemplate['name'] == 'Storefront modal') {
+                $offer_lib->deleteWidgetTemplate($widgetTemplate['uuid']);
+            }
+        }
+        return ['status' => true, 'message' => 'Delete widget success'];;
+    }
+
+    public function deleteScripts($user) {
+        // $user = auth()->user();
+        $offer_lib = new OfferLib($user);
+        $scripts = $offer_lib->getAllScript();
+        $new = [];
+        foreach ($scripts as $script) {
+            if ($script['name'] == 'Ult upsell script') {
+                $offer_lib->deleteScript($script['uuid']);
+            }
+        }
+        return ['status' => true, 'message' => 'Delete script success'];
     }
 }

@@ -52,6 +52,8 @@ $router->group(['prefix' => 'ult-upsell', 'middleware' => ['web', 'auth']], func
 
     $router->get('add-widget', 'OfferController@addWidgetToStorefront');
     $router->get('add-script', 'OfferController@addScriptsToStorefront');
+    $router->get('delete-script', 'AuthCallbackController@deleteScripts');
+    $router->get('delete-widget', 'AuthCallbackController@deleteWidgets');
 
     // $router->get('/import', 'HomeController@import')->name('import');
     // $router->post('/import', 'HomeController@importPost')->name('import.post');
