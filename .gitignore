@@ -14,4 +14,7 @@ npm-debug.log
 yarn-error.log
 /public/css/app.css
 /public/js/app.js
+/public/js/vendor.js
+/public/js/manifest.js
+/public/js/chunk/*
 package-lock.json

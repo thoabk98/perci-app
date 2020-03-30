@@ -16,10 +16,13 @@ mix.webpackConfig({
             '@': __dirname + '/resources/js'
         },
     },
+    output: {
+        chunkFilename: 'js/chunk/[chunkhash].js',
+    }
 })
 
 mix.js([
     'resources/js/app.js',
     'resources/js/assets/js/common.js'
-], 'public/js')
+], 'public/js').extract(['vue', 'element-ui'])
     .sass('resources/sass/app.scss', 'public/css');
