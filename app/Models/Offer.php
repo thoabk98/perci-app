@@ -10,7 +10,7 @@ class Offer extends Model
     //use SoftDeletes;
     protected $table = 'offers';
 
-    protected $fillable = ['base_product_id', 'type', 'position', 'content', 'customer_template_id', 'name'];
+    protected $fillable = ['base_product_id', 'type', 'position', 'content', 'customer_template_id', 'name', 'group_id'];
 
     const UPSELL = 1;
     const CROSSSELL = 2;

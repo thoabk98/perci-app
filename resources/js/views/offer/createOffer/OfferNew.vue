@@ -16,10 +16,6 @@
 </template>
 
 <script>
-import OfferForm from './OfferForm.vue';
-import TriggerLocation from './TriggerLocation.vue';
-import OfferCreate from './OfferCreate.vue';
-
 export default {
     data() {
         return {
@@ -36,9 +32,9 @@ export default {
         };
     },
     components: {
-		OfferForm,
-        TriggerLocation,
-        OfferCreate
+		    OfferForm: () => import("@/views/offer/createOffer/OfferForm"),
+        TriggerLocation: () => import("@/views/offer/createOffer/TriggerLocation"),
+        OfferCreate: () => import("@/views/offer/createOffer/OfferCreate")
 	},
     methods: {
         next(step, offer) {

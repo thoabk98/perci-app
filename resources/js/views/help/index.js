@@ -1,5 +1,5 @@
-import Help from './HelpCenter';
-import FeatureRequest from './FeatureRequest';
+const Help = () => import("@/views/help/HelpCenter");
+const FeatureRequest = () => import("@/views/help/FeatureRequest");
 
 export default [
     {path: '/ult-upsell/help-center/', component: Help, name: 'help.index'},

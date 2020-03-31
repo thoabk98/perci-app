@@ -1,7 +1,7 @@
-import UserList from './UserList';
-import UserForm from './UserForm';
-import UserEdit from './UserEdit';
-import Profile from './Profile';
+const UserList = () => import('@/views/user/UserList');
+const UserForm = () => import('@/views/user/UserForm');
+const UserEdit = () => import('@/views/user/UserEdit');
+const Profile = () => import('@/views/user/Profile');
 
 export default [
     {path: '/admin/user/users', component: UserList, name: 'user.index'},

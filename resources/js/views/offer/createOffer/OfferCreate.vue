@@ -211,7 +211,6 @@
 </template>
 
 <script>
-import OfferProductList from './OfferProductList.vue'
 import Form from 'form-backend-validation';
 
 export default {
@@ -339,7 +338,7 @@ export default {
         }
     },
     components: {
-        OfferProductList
+        OfferProductList: () => import("@/views/offer/createOffer/OfferProductList")
     },
     computed: {
         disabled () {

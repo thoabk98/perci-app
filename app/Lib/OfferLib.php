@@ -87,6 +87,30 @@ class OfferLib
         return $widgetTemplate;
     }
 
+    public function getAllWidgetTemplate() {
+        $client = new GuzzleHttp();
+        $res = $client->request(
+            'GET', 'https://api.bigcommerce.com/stores/' . $this->store_hash . '/v3/content/widget-templates',
+            [
+                'headers' => $this->headers,
+            ]
+        );
+        $widgetTemplate = json_decode($res->getBody()->getContents(), true)['data'];
+        return $widgetTemplate;
+    }
+
+    public function deleteWidgetTemplate($uuid) {
+        $client = new GuzzleHttp();
+        $res = $client->request(
+            'DELETE', 'https://api.bigcommerce.com/stores/' . $this->store_hash . '/v3/content/widget-templates/' . $uuid,
+            [
+                'headers' => $this->headers,
+            ]
+        );
+        $widgetTemplate = json_decode($res->getBody()->getContents(), true)['data'];
+        return $widgetTemplate;
+    }
+
     /*
     $widget = [
         "name" => "Storefront modal",
@@ -152,6 +176,30 @@ class OfferLib
             [
                 'headers' => $this->headers,
                 'body' => $body
+            ]
+        );
+        $script = json_decode($res->getBody()->getContents(), true)['data'];
+        return $script;
+    }
+
+    public function getAllScript() {
+        $client = new GuzzleHttp();
+        $res = $client->request(
+            'GET', 'https://api.bigcommerce.com/stores/' . $this->store_hash . '/v3/content/scripts',
+            [
+                'headers' => $this->headers,
+            ]
+        );
+        $script = json_decode($res->getBody()->getContents(), true)['data'];
+        return $script;
+    }
+
+    public function deleteScript($uuid) {
+        $client = new GuzzleHttp();
+        $res = $client->request(
+            'DELETE', 'https://api.bigcommerce.com/stores/' . $this->store_hash . '/v3/content/scripts/' . $uuid,
+            [
+                'headers' => $this->headers,
             ]
         );
         $script = json_decode($res->getBody()->getContents(), true)['data'];

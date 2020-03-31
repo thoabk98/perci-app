@@ -26,13 +26,13 @@
             <!-- /div content -->
             <div class="row row-center">
                 <div class="col-md-3 col-sm-12 col-custom">
-                    <trigger-card :data="addToCart" :offer="offer" @nextStep='next' :step="step"></trigger-card>
+                    <TriggerCard :data="addToCart" :offer="offer" @nextStep='next' :step="step"></TriggerCard>
                 </div>
                 <div class="col-md-3 col-sm-12 col-custom">
-                    <trigger-card :data="beforeCheckout" :offer="offer" @nextStep='next' :step="step"></trigger-card>
+                    <TriggerCard :data="beforeCheckout" :offer="offer" @nextStep='next' :step="step"></TriggerCard>
                 </div>
                 <div class="col-md-3 col-sm-12 col-custom">
-                    <trigger-card :data="afterCheckout" :offer="offer" @nextStep='next' :step="step"></trigger-card>
+                    <TriggerCard :data="afterCheckout" :offer="offer" @nextStep='next' :step="step"></TriggerCard>
                 </div>
             </div>
             <!-- div container -->
@@ -77,7 +77,7 @@
 			};
 		},
 		components: {
-			"trigger-card": TriggerCard
+      TriggerCard
 		},
 		methods: {
 			next(step, offer) {

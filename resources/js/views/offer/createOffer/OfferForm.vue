@@ -93,7 +93,7 @@
 				},
             },
             components: {
-                "offer-card": OfferCard
+                OfferCard
             }
     };
 </script>

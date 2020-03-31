@@ -24,7 +24,7 @@
         "eslint-plugin-vue": "^3.14.0",
         "form-backend-validation": "^2.3.6",
         "jquery": "^3.1.1",
-        "laravel-mix": "^1.7.2"
+        "laravel-mix": "^3"
     },
     "dependencies": {
         "@voerro/vue-tagsinput": "^2.0.2",
