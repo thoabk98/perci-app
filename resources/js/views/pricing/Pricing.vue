@@ -300,12 +300,10 @@
 </template>
 
 <script>
-    import CustomForm from "./CustomForm"
-    import Payment from "./Payment"
     export default {
         components: {
-            CustomForm,
-            Payment
+            CustomForm: () => import("@/views/pricing/CustomForm"),
+            Payment: () => import("@/views/pricing/Payment")
         },
         data() {
             return {
@@ -321,7 +319,7 @@
                         colors: ''
                     }
                 ],
-                current_plan: 'free'
+                current_plan: ''
             }
         },
         methods: {
@@ -348,6 +346,12 @@
             },
             update(value){
                 this.current_plan = value
+            }
+        },
+        watch:{
+            current_plan: function(value){
+                let x = document.getElementById("upgrade")
+                x.style.backgroundColor = value == 'starter'? '#0060E5' : '#67C23A'
             }
         },
         mounted() {

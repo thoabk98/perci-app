@@ -85,6 +85,10 @@
           </el-radio>
           <div v-if="method == 'paypal'">
             <p class="detail">Click the button to sign in your paypal account and pay securely</p>
+            <el-button type="primary">
+              <img src="https://time.graphics/public/images/svg/social/paypal-white.svg" class="image">
+              <i class="el-icon-arrow-right el-icon-right"></i>
+            </el-button>
           </div>   
           <el-row>
             <el-col :span="4" :offset="12">
@@ -110,7 +114,8 @@ export default {
       cardNumber: '',
       name:'',
       date: '',
-      cvv: ''
+      cvv: '',
+      email: 'youremail@gmail.com'
     }
   },
   methods: {
