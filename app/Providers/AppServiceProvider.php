@@ -39,8 +39,9 @@ class AppServiceProvider extends ServiceProvider
         $this->loadAssets();
         $this->loadExcelStyle();
         if($this->app->environment('production')) {
-          \URL::forceScheme('https');
+            \URL::forceScheme('https');
         }
+
     }
 
     public function loadAssets()
