@@ -3,7 +3,10 @@
     <div class="modal-dialog">
       <div class="modal-content">
         <div class="modal-header">
-          <button type="button" class="close" data-dismiss="modal">&times;</button>
+          <el-button class="close">
+          <i class="el-icon-lock"></i>
+          <span class="detail"> SECURE </span>
+          </el-button>
           <h4 class="pay-title">Payment Method</h4>
         </div>
         <div class="modal-body">
@@ -12,9 +15,9 @@
               <p>CURRENT PLAN</p>
               <p class="detail">STARTER Plan (Excld VAT)</p>
             </el-col>
-            <el-col :span="8">
-              <p>NEXT INVOICE</p>
-              <p class="detail">23rd October 2020</p>
+            <el-col :span="8" :offset="7">
+              <p class="next-voice">NEXT INVOICE</p>
+              <p class="detail next-voice">23rd October 2020</p>
             </el-col>
           </el-row>
           <el-row>
@@ -95,7 +98,7 @@
               <el-button size="medium" data-dismiss="modal">Cancel</el-button>
             </el-col>
             <el-col :span="6">
-              <el-button type="success" data-dismiss="modal" v-on:click = "complete">
+              <el-button data-dismiss="modal" v-on:click = "complete" v-bind:style="{'background-color':'#47CA67', 'color': '#fff'}">
                 Complete order
                 <i class="el-icon-arrow-right el-icon-right"></i>
               </el-button>
@@ -177,5 +180,7 @@ export default {
 
 /* add padding  */
 .right-addon input { padding-right: 30px; }
-
+.next-voice{
+  text-align: right;
+}
 </style>
