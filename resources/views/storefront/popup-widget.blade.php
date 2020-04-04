@@ -25,9 +25,16 @@ var cart_id = '';
 var hasOffer = false;
 
 $(function() {
+
+    var ip_data = '';
+    $.get('https://www.cloudflare.com/cdn-cgi/trace', function(data) {
+        ip_data = data.match(/ip=(.*)\nts/)[1]
+    })
+
     var data = {
         id: product_id,
-        store_hash: store_hash
+        store_hash: store_hash,
+        customer_ip: ip_data
     };
 
     $.ajax({
@@ -46,7 +53,7 @@ $(function() {
             offer_id = res.offer_id
         },
         error: function (res) {
-            $('.ult-upsell-modal-body').html(res.responseText);  
+            $('.ult-upsell-modal-body').html(res.responseText);
             console.log("Error occured");
         },
     });
