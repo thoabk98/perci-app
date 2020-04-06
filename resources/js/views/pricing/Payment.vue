@@ -132,43 +132,6 @@ export default {
   },
   mounted(){
 
-    paypal.Button.render({
-      env: 'sandbox',
-      client: {
-        sandbox: 'AZ9t8pb58IUU4ZwAggcHdZYYoUOa19HCKEe6KL75SAwl5oaJdBZ2ddFQot-uG3aN-OyU8Zj9xQo-lb5L'
-      },
-      style: {
-          label: 'paypal',
-          size: 'responsive',
-          shape: 'rect'
-      },
-      commit: true,
-      payment: () => {
-          return paypalCheckoutInstance.createPayment({
-                  flow: 'checkout',
-                  intent: 'sale',
-                  amount: 10,
-                  displayName: 'Braintree Testing',
-                  currency: 'USD'
-          })
-      },
-      onAuthorize: (data, options) => {
-          return paypalCheckoutInstance.tokenizePayment(data).then(payload => {
-              console.log(payload);
-              this.error = "";
-              this.nonce = payload.nonce;
-          })
-      },
-      onCancel: (data) => {
-          console.log(data);
-          console.log("Payment Cancelled");
-      },
-      onError: (err) => {
-          console.error(err);
-          this.error = "An error occurred while processing the paypal payment.";
-      }
-    }, '#paypalButton')    
-  }
 }
 </script>
 <style>
