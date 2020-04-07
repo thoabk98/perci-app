@@ -350,6 +350,7 @@
         },
         watch:{
             current_plan: function(value){
+                console.log(value)
                 let x = document.getElementById("upgrade")
                 x.style.backgroundColor = value == 'starter'? '#0060E5' : '#67C23A'
             }

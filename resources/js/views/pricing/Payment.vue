@@ -3,11 +3,16 @@
     <div class="modal-dialog">
       <div class="modal-content">
         <div class="modal-header">
-          <el-button class="close">
-          <i class="el-icon-lock"></i>
-          <span class="detail"> SECURE </span>
-          </el-button>
-          <h4 class="pay-title">Payment Method</h4>
+          <el-row>
+            <el-col :span="6" :offset="9">
+              <h4>Payment Method</h4>
+            </el-col>
+            <el-col :span="4" class="secure-text">
+              <i class="el-icon-lock"></i>
+              <span class="detail"> SECURE </span>
+            </el-col>
+
+          </el-row>
         </div>
         <div class="modal-body">
           <el-row>
@@ -88,10 +93,7 @@
           </el-radio>
           <div v-if="method == 'paypal'">
             <p class="detail">Click the button to sign in your paypal account and pay securely</p>
-            <el-button type="primary">
-              <img src="https://time.graphics/public/images/svg/social/paypal-white.svg" class="image">
-              <i class="el-icon-arrow-right el-icon-right"></i>
-            </el-button>
+            <div id="paypalButton"></div>
           </div>   
           <el-row>
             <el-col :span="4" :offset="12">
@@ -109,7 +111,10 @@
     </div>
   </div>
 </template>
+
 <script>
+import braintree from 'braintree-web';
+import paypal from 'paypal-checkout';
 export default {
   data(){
     return{
@@ -117,15 +122,16 @@ export default {
       cardNumber: '',
       name:'',
       date: '',
-      cvv: '',
-      email: 'youremail@gmail.com'
+      cvv: ''
     }
   },
   methods: {
     complete(){
       this.$emit('update', 'starter')
     }
-  }
+  },
+  mounted(){
+
 }
 </script>
 <style>
@@ -182,5 +188,10 @@ export default {
 .right-addon input { padding-right: 30px; }
 .next-voice{
   text-align: right;
+}
+.secure-text{
+  right: 0px;
+  position: absolute;
+  top: 11px;
 }
 </style>

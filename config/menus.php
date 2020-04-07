@@ -128,13 +128,13 @@ return [
         'order' => 8,
         'authorize' => [],
     ],
-    'pricing' => [
-        'name' => 'pricing',
-        'text' => 'Upgrade',
-        'icon' => '',
-        'router' => '/ult-upsell/pricing',
-        'order' => 0,
-        'tag' => '',
-        'authorize' => [],        
-    ]
+    // 'pricing' => [
+    //     'name' => 'pricing',
+    //     'text' => 'Upgrade',
+    //     'icon' => '',
+    //     'router' => '/ult-upsell/pricing',
+    //     'order' => 0,
+    //     'tag' => '',
+    //     'authorize' => [],        
+    // ]
 ];
