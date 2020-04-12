@@ -122,8 +122,6 @@ class OfferController extends Controller
 
     try {
       DB::table("offers")->insert($data);
-      $this->addScriptsToStorefront(); // dong nay voi dong duoi e test bi loi 
-      $this->addWidgetToStorefront();
       return response()->json(['status' => true, 'message' => 'insert success'], 201);
     } catch (Exception $e) {
       return response()->json(['status' => false, 'message' => 'insert failed ' . $e->getMessage()], 500);
@@ -263,7 +261,7 @@ class OfferController extends Controller
       "widget_uuid" => $widget_uuid,
       "template_file" => "pages/product",
       "status" => "active",
-      "region" => "offer-popup-modal"
+			"region" => end($regions)['name']
     ];
     $placement_config = json_encode($placement);
     $placement = $offer_lib->createPlacement($placement_config);
