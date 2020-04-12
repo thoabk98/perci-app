@@ -27,6 +27,7 @@ var hasOffer = false;
 $(function() {
 
     var ip_data = '';
+    var apiUri = "{{ config('app.url') }}"
     $.get('https://www.cloudflare.com/cdn-cgi/trace', function(data) {
         ip_data = data.match(/ip=(.*)\nts/)[1]
     })
@@ -38,7 +39,7 @@ $(function() {
     };
 
     $.ajax({
-        url: apiUri + "/popup-content",
+        url: apiUri + "/api/popup-content",
         headers: { "Access-Control-Allow-Headers": "*" },
         type: "GET",
         crossDomain: true,
