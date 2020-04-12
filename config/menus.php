@@ -5,7 +5,7 @@ return [
         'name' => 'dashboard',
         'text' => 'Dashboard',
         'icon' => 'fa fa-dashboard',
-        'router' => '/admin/dashboard',
+        'router' => '/ult-upsell/dashboard',
         'order' => 1,
         'tag' => '',
         'authorize' => [],
