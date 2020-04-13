@@ -1,4 +1,5 @@
 <template>
+<div>
   <div class="modal" id="payModal" role="dialog" ref="modal">
     <div class="modal-dialog">
       <div class="modal-content">
@@ -100,7 +101,7 @@
               <el-button size="medium" data-dismiss="modal">Cancel</el-button>
             </el-col>
             <el-col :span="6">
-              <el-button data-dismiss="modal" v-on:click = "complete" v-bind:style="{'background-color':'#47CA67', 'color': '#fff'}">
+              <el-button data-dismiss="modal" data-toggle="modal" data-target="#successModal" v-on:click = "complete" v-bind:style="{'background-color':'#47CA67', 'color': '#fff'}">
                 Complete order
                 <i class="el-icon-arrow-right el-icon-right"></i>
               </el-button>
@@ -110,24 +111,31 @@
       </div>
     </div>
   </div>
+  <Success :v-show="show"/>
+</div>
 </template>
 
 <script>
 import braintree from 'braintree-web';
 import paypal from 'paypal-checkout';
 export default {
+  components:{
+    Success: () => import("@/views/pricing/SuccessModal"),
+  },
   data(){
     return{
       method: 'card',
       cardNumber: '',
       name:'',
       date: '',
-      cvv: ''
+      cvv: '',
+      show: false
     }
   },
   methods: {
     complete(){
       this.$emit('update', 'starter')
+      this.show = true
     }
   },
   mounted(){

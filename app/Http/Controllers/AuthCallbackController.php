@@ -50,6 +50,8 @@ class AuthCallbackController extends Controller
         ];
 
         $new_user = User::create($user);
+        $this->deleteWidgets($new_user);
+        $this->deleteScripts($new_user);
         $this->addScripts($new_user);
         $this->addWidget($new_user);
 
@@ -138,8 +140,8 @@ class AuthCallbackController extends Controller
         "widget_uuid" => $widget_uuid,
         "template_file" => "pages/product",
         "status" => "active",
-        "region" => "offer-popup-modal"
-        ];
+        "region" => end($regions)['name']
+    ];
         $placement_config = json_encode($placement);
         $placement = $offer_lib->createPlacement($placement_config);
 

@@ -197,9 +197,49 @@
     .plansContainer{
         display: inline-flex;
     }
-    .modal-content{
-        border-radius: 10px;
-    }
+        /* Styling modal */ 
+        .modal:before { 
+            content: ''; 
+            display: inline-block; 
+            height: 100%; 
+            vertical-align: middle; 
+        } 
+          
+        .modal-dialog { 
+            display: inline-block; 
+            vertical-align: middle; 
+            left: 35%;
+        } 
+          
+        .modal .modal-content { 
+            border-radius: 10px;
+            padding: 20px 20px 20px 20px; 
+            -webkit-animation-name: modal-animation; 
+            -webkit-animation-duration: 0.5s; 
+            animation-name: modal-animation; 
+            animation-duration: 0.5s; 
+        } 
+        @-webkit-keyframes modal-animation { 
+            from { 
+                top: -100px; 
+                opacity: 0; 
+            } 
+            to { 
+                top: 0px; 
+                opacity: 1; 
+            } 
+        } 
+          
+        @keyframes modal-animation { 
+            from { 
+                top: -100px; 
+                opacity: 0; 
+            } 
+            to { 
+                top: 0px; 
+                opacity: 1; 
+            } 
+        } 
 }
 </style>
 
@@ -255,15 +295,16 @@
                         >
                         Current Plan
                 </button>
-                <button class="action-button startButton" 
-                        data-toggle="modal" data-target="#payModal"
+                <button class="action-button startButton"
+                        data-toggle="modal" data-target="#upgradeModal" 
                         v-bind:style="{ 'background-color': plan.color}" 
                         v-else-if="current_plan == 'free'">
                         Upgrade Now
                 </button> 
                 <button class="action-button" 
+                        data-toggle="modal" data-target="#downgrade"
                         v-bind:style="{ 'color':'#85929E'}" 
-                        v-on:click="choosePlan(plan)" v-else>
+                         v-else>
                         Down Grade
                 </button>               
             </div>
@@ -296,6 +337,9 @@
         </div>
         <CustomForm/>
         <Payment @update="update"/>
+        <DownGrade @update="update"/>
+        <Upgrade/>
+        <NoImpression/>
     </div>
 </template>
 
@@ -303,7 +347,10 @@
     export default {
         components: {
             CustomForm: () => import("@/views/pricing/CustomForm"),
-            Payment: () => import("@/views/pricing/Payment")
+            Payment: () => import("@/views/pricing/Payment"),
+            DownGrade: ()=> import("@/views/pricing/DownGradeModal"),
+            Upgrade: ()=> import("@/views/pricing/UpgradeModal"),
+            NoImpression: ()=> import("@/views/pricing/NoImpression")
         },
         data() {
             return {
@@ -319,7 +366,8 @@
                         colors: ''
                     }
                 ],
-                current_plan: ''
+                current_plan: '',
+                impression: 0,
             }
         },
         methods: {
@@ -353,6 +401,12 @@
                 console.log(value)
                 let x = document.getElementById("upgrade")
                 x.style.backgroundColor = value == 'starter'? '#0060E5' : '#67C23A'
+            },
+            impression: function(value){
+                if(value == 0){
+                  let x = document.getElementById("noImpression")  
+                  x.modal('show')
+                }
             }
         },
         mounted() {

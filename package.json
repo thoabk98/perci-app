@@ -17,7 +17,8 @@
     "devDependencies": {
         "babel-polyfill": "^6.26.0",
         "bootstrap-sass": "^3.3.7",
-        "cross-env": "^5.1.3",
+        "cross-env": "^5.2.1",
+        "emailjs-com": "^2.4.1",
         "eslint": "^4.15.0",
         "eslint-config-airbnb-base": "^12.0.2",
         "eslint-plugin-import": "^2.8.0",
@@ -42,6 +43,7 @@
         "imagemin-pngquant": "^5.0.1",
         "lodash": "^4.17.11",
         "moment": "^2.24.0",
+        "paypal-checkout": "^4.0.312",
         "pngquant-bin": "^3.1.1",
         "v-money": "^0.8.1",
         "v-select2-component": "^0.3.8",
