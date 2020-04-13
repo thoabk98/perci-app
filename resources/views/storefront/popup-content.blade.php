@@ -6,7 +6,7 @@
     </button>
     <h3>LIMITED TIME OFFER!</h3>
 </div>
-<div class="popup-des">Add these Items and Save</div>
+<div class="popup-des">Add these Items</div>
 <div class="flex popup-content">
     <div class="column left-container "><img class="round-border" width="290" src="{{ $offer_item->image }}" class="img-fluid" alt="" /></div>
     <div class="column right-container ">
