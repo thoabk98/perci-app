@@ -1,11 +1,11 @@
 <!-- Modal -->
 
-<link rel="stylesheet" href="https://peasisoft.com/storefront/css/theme1.css" type="text/css" media="all" />
-<link rel="stylesheet" href="https://peasisoft.com/storefront/css/loader.css" type="text/css" media="all" />
+<link rel="stylesheet" href="https://572cbf3b.ngrok.io/storefront/css/theme1.css" type="text/css" media="all" />
+<link rel="stylesheet" href="https://572cbf3b.ngrok.io/storefront/css/loader.css" type="text/css" media="all" />
 
 <div id="get-store-hash" data-store_hash="{{ $store_hash }}"></div>
 <div id="ult-upsell-popup-modal" class="ult-upsell modal fade bd-example-modal-lg" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
-    <div class="modal-dialog popup-modal-dialog popup-modal-lg">
+    <div class="modal-dialog">
         <div class="popup-modal-content">
             <div class="popup-modal-body ult-upsell-modal-body">
                 {{-- Insert modal content here --}}
@@ -25,7 +25,6 @@ var cart_id = '';
 var hasOffer = false;
 
 $(function() {
-
     var ip_data = '';
     var apiUri = "{{ config('app.url') }}"
     $.get('https://www.cloudflare.com/cdn-cgi/trace', function(data) {

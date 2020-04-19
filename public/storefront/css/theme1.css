@@ -5,7 +5,7 @@
 .ult-upsell.modal {
   visibility: visible;
   z-index: 1050;
-  width: auto;
+  width: 95%;
   display: none;
   overflow-y: auto;
   outline: 0;
@@ -52,78 +52,19 @@
 }
 .ult-upsell .popup-content {
   margin: auto 0;
-  padding: 3rem 1.5rem;
 }
 .ult-upsell .popup-content .left-container {
-  padding-left: 1.5rem;
-  padding-bottom: 1.5rem;
-  text-align: left;
+  width: 40%;
+  padding: 1.5rem;
 }
 .ult-upsell .popup-content .left-container img {
   border: 1px solid #6c757d;
 }
 .ult-upsell .popup-content .right-container {
-  padding-left: 1.5rem;
-  padding-bottom: 1.5rem;
   text-align: left;
+  width: 60%;
 }
-.ult-upsell .popup-content h4 {
-  margin: 0;
-}
-.ult-upsell .popup-content .info {
-  padding-bottom: 1.5rem;
-  margin: 0;
-}
-.ult-upsell .popup-content .name {
-  padding-top: 0.25rem;
-}
-.ult-upsell .popup-content .price {
-  padding-top: 1rem;
-  padding-bottom: 1rem;
-}
-.ult-upsell .popup-content .color {
-  padding-bottom: 0.25rem;
-}
-.ult-upsell .popup-content .add-to-cart {
-  color: #fff;
-  font-weight: bold;
-  background-color: #28a745;
-}
-.ult-upsell .popup-content .add-to-cart:hover {
-  color: #fff;
-  background-color: #1e7e34;
-  border-color: #1c7430;
-}
-.ult-upsell ul {
-  list-style-type: none;
-}
-.ult-upsell .round-border {
-  border-radius: 0.75rem !important;
-}
-.ult-upsell .color-picker {
-  width: 20px;
-  height: 20px;
-  padding: 0 !important;
-  margin-right: 0.5rem;
-  border-radius: 50%;
-}
-.ult-upsell .flex {
-  display: flex;
-  flex-wrap: wrap;
-}
-.ult-upsell .inline {
-  display: inline-block;
-}
-.ult-upsell .popup-button {
-  display: inline-block;
-  text-align: center;
-  vertical-align: middle;
-  border: 1px solid transparent;
-  padding: 0.375rem 0.75rem;
-  font-size: 1rem;
-  line-height: 1.5;
-  transition: color 0.15s ease-in-out, background-color 0.15s ease-in-out, border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out;
-}
+
 .modal-backdrop {
   position: fixed;
   top: 0;
@@ -139,25 +80,18 @@
 .modal-backdrop.show {
   opacity: 0.5;
 }
-@media (min-width: 576px) {
-  .ult-upsell .popup-modal-dialog {
-    max-width: 500px;
-  }
-}
-@media (min-width: 992px) {
-  .ult-upsell .column {
-    flex: 0 0 50%;
-    padding-right: 15px;
-    padding-left: 15px;
+
+@media only screen and (min-width: 600px) {
+  .ult-upsell.modal {
     width: 50%;
-  }
-  .ult-upsell .popup-modal-lg {
-    max-width: 800px;
   }
 }
 
-.close {
-  float: right;
-  font-size: 50px;
-  width: 0px;
+
+/* Large devices (laptops/desktops, 992px and up) */
+@media only screen and (min-width: 992px) {
+  .ult-upsell.modal {
+    width: 30%;
+  }
 }
+
