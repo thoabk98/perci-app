@@ -42,28 +42,6 @@
   flex: 1 1 auto;
   padding: 1rem;
 }
-.ult-upsell .popup-title {
-  padding: 1.5rem 3rem 0;
-  font-size: 1.75rem;
-  margin-top: -50px
-}
-.ult-upsell .popup-des {
-  padding: 0.5rem 3rem 0;
-}
-.ult-upsell .popup-content {
-  margin: auto 0;
-}
-.ult-upsell .popup-content .left-container {
-  width: 40%;
-  padding: 1.5rem;
-}
-.ult-upsell .popup-content .left-container img {
-  border: 1px solid #6c757d;
-}
-.ult-upsell .popup-content .right-container {
-  text-align: left;
-  width: 60%;
-}
 
 .modal-backdrop {
   position: fixed;
