@@ -1,7 +1,7 @@
 <!-- Modal -->
 
-<link rel="stylesheet" href="https://5726baba.ngrok.io/storefront/css/theme1.css" type="text/css" media="all" />
-<link rel="stylesheet" href="https://5726baba.ngrok.io/storefront/css/loader.css" type="text/css" media="all" />
+<link rel="stylesheet" href="https://peasisoft.com/storefront/css/theme1.css" type="text/css" media="all" />
+<link rel="stylesheet" href="https://peasisoft.com/storefront/css/loader.css" type="text/css" media="all" />
 
 <div id="get-store-hash" data-store_hash="{{ $store_hash }}"></div>
 <div id="ult-upsell-popup-modal" class="ult-upsell modal fade bd-example-modal-lg" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
